@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  /* Colors */
+  --background: #FFFFFF;
+  --surface: #F7F7F8;
+  --ink: #0B0C10;
+  --muted: #6B7280;
+  --accent: #4F46E5;
+  --hairline: #ECECEF;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-hairline: var(--hairline);
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-display);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--ink);
+  font-family: var(--font-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fluid typography scale using clamp */
+.text-display {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(4rem, 2.8vw + 3rem, 6rem); /* 64-96px */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.text-h2 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2.5rem, 2vw + 1.8rem, 3.5rem); /* 40-56px */
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.text-h3 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.5rem, 1vw + 1.1rem, 1.75rem); /* 24-28px */
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.text-body {
+  font-size: clamp(1rem, 0.2vw + 0.9rem, 1.125rem); /* 16-18px */
+  line-height: 1.6;
+}
+
+.text-small {
+  font-size: clamp(0.8125rem, 0.1vw + 0.77rem, 0.875rem); /* 13-14px */
+  line-height: 1.5;
+}
