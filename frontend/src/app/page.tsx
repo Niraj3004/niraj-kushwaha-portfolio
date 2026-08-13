@@ -5,6 +5,7 @@ import { Skills } from "@/components/sections/Skills";
 import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Timeline } from "@/components/sections/Timeline";
+import { Contact } from "@/components/sections/Contact";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
         <FeaturedProjects />
         <Testimonials />
         <Timeline />
+        <Contact />
       </div>
     </SmoothScroll>
   );
