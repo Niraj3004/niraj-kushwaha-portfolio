@@ -1,6 +1,7 @@
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Skills } from "@/components/sections/Skills";
+import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
         <Hero />
         <About />
         <Skills />
+        <FeaturedProjects />
       </div>
     </SmoothScroll>
   );
