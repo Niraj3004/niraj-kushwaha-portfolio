@@ -1,18 +1,50 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
 import { Container } from "../ui/Container";
 import { Badge } from "../ui/Badge";
 import { Reveal } from "../motion/Reveal";
-import { TextReveal } from "../motion/TextReveal";
+import { ScrambleText } from "../motion/ScrambleText";
 import { Stagger, StaggerItem } from "../motion/Stagger";
 import { MagneticButton } from "../motion/MagneticButton";
 import { Parallax } from "../motion/Parallax";
+import { Grain } from "../motion/Grain";
+
+const TimeWidget = () => {
+  const [time, setTime] = useState<string>("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Kathmandu",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+      setTime(formatter.format(new Date()));
+    };
+    
+    updateTime();
+    const interval = setInterval(updateTime, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex items-center gap-2 text-small text-muted font-medium bg-white/50 backdrop-blur-sm border border-hairline rounded-full px-4 py-1.5 shadow-sm">
+      <span>📍 Kathmandu, Nepal</span>
+      <span className="w-1 h-1 rounded-full bg-muted/50 mx-1"></span>
+      <span className="w-[60px] text-left">{time || "---"}</span>
+    </div>
+  );
+};
 
 export const Hero = () => {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20 pb-32">
+      <Grain />
+      
       {/* Background Parallax Elements */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
         <Parallax speed={0.8} className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px]" />
@@ -21,22 +53,24 @@ export const Hero = () => {
 
       <Container className="relative z-10">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          {/* Availability Badge */}
+          {/* Status & Time */}
           <Reveal delay={0.1}>
-            <Badge variant="outline" className="mb-8 px-4 py-2 border-hairline bg-white/50 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2 mr-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              Available for new projects
-            </Badge>
+            <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
+              <Badge variant="outline" className="px-4 py-1.5 border-hairline bg-white/50 backdrop-blur-sm">
+                <span className="relative flex h-2 w-2 mr-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                Available for new projects
+              </Badge>
+              <TimeWidget />
+            </div>
           </Reveal>
 
           {/* Main Headline */}
-          <h1 className="text-display mb-6 tracking-tight">
-            <TextReveal text="Crafting digital experiences that" delay={0.2} />
-            <br />
-            <TextReveal text="inspire and perform." delay={0.4} />
+          <h1 className="text-display mb-6 tracking-tight flex flex-col items-center">
+            <span className="block"><ScrambleText text="Crafting digital experiences that" delay={0.2} /></span>
+            <span className="block"><ScrambleText text="inspire and perform." delay={0.4} /></span>
           </h1>
 
           {/* Subheading */}
