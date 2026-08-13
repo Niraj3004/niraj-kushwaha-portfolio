@@ -30,7 +30,12 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-// Routes Placeholder
+import routes from './routes';
+
+// Routes
+app.use('/api', routes);
+
+// Health check
 app.get('/api/health', (req: Request, res: Response) => {
   sendResponse(res, 200, true, 'API is running');
 });
