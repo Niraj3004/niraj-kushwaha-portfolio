@@ -14,9 +14,68 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
+const BASE_URL = "https://nirajkushwaha.dev";
+
 export const metadata: Metadata = {
-  title: "Niraj Kushwaha | Portfolio",
-  description: "Full-stack developer from Kathmandu",
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "Niraj Kushwaha — Full-Stack Developer",
+    template: "%s | Niraj Kushwaha",
+  },
+  description:
+    "Niraj Kushwaha is a full-stack developer from Kathmandu building performant web apps, mobile apps, and AI-assisted tools with Next.js, React Native, and Node.js.",
+  keywords: [
+    "Niraj Kushwaha",
+    "Full-Stack Developer",
+    "Next.js",
+    "React",
+    "Node.js",
+    "Nepal developer",
+    "Kathmandu developer",
+    "web developer portfolio",
+  ],
+  authors: [{ name: "Niraj Kushwaha", url: BASE_URL }],
+  creator: "Niraj Kushwaha",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: BASE_URL,
+    siteName: "Niraj Kushwaha",
+    title: "Niraj Kushwaha — Full-Stack Developer",
+    description:
+      "Full-stack developer from Kathmandu building web apps, mobile apps, and AI-assisted tools.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Niraj Kushwaha — Full-Stack Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Niraj Kushwaha — Full-Stack Developer",
+    description:
+      "Full-stack developer from Kathmandu building web apps, mobile apps, and AI-assisted tools.",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: BASE_URL,
+  },
+  themeColor: "#4F46E5",
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({

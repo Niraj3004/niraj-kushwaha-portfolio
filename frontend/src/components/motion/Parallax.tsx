@@ -1,8 +1,6 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -19,28 +17,34 @@ export const Parallax = ({ children, speed = 0.5, className }: ParallaxProps) =>
   useEffect(() => {
     if (shouldReduceMotion) return;
     
-    gsap.registerPlugin(ScrollTrigger);
-    
     const element = ref.current;
     if (!element) return;
-    
-    // Parallax effect using yPercent
-    const yOffset = (1 - speed) * 100;
-    
-    const ctx = gsap.context(() => {
-      gsap.to(element, {
-        yPercent: yOffset,
-        ease: "none",
-        scrollTrigger: {
-          trigger: element.parentElement,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
+
+    // Lazily load GSAP + ScrollTrigger so it never blocks first paint
+    let ctx: { revert: () => void } | null = null;
+
+    import("gsap").then(({ default: gsap }) => {
+      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const yOffset = (1 - speed) * 100;
+
+        ctx = gsap.context(() => {
+          gsap.to(element, {
+            yPercent: yOffset,
+            ease: "none",
+            scrollTrigger: {
+              trigger: element.parentElement,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        }, ref);
       });
-    }, ref);
-    
-    return () => ctx.revert();
+    });
+
+    return () => ctx?.revert();
   }, [speed, shouldReduceMotion]);
 
   return (

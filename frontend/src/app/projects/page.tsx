@@ -1,5 +1,19 @@
+import type { Metadata } from "next";
 import { ProjectsGrid } from "@/components/sections/ProjectsGrid";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Explore all projects by Niraj Kushwaha — full-stack web apps, mobile apps, and AI tools built for Nepal and beyond.",
+  openGraph: {
+    title: "Projects | Niraj Kushwaha",
+    description: "Full-stack web apps, mobile apps, and AI tools built for Nepal and beyond.",
+    url: "https://nirajkushwaha.dev/projects",
+  },
+  alternates: { canonical: "https://nirajkushwaha.dev/projects" },
+};
+
 
 // Fallback data if API is down
 const FALLBACK_PROJECTS = [
