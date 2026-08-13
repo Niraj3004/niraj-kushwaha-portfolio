@@ -65,7 +65,7 @@ async function getProjectBySlug(slug: string) {
     const data = await res.json();
     return data.data;
   } catch (error) {
-    console.error("Error fetching project, using fallback:", error);
+    console.log(`Backend API not reachable. Using fallback project data for ${slug}.`);
     return FALLBACK_PROJECTS[slug] || null;
   }
 }

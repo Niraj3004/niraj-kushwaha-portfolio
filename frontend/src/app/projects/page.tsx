@@ -59,7 +59,7 @@ async function getProjects() {
     }
     return FALLBACK_PROJECTS;
   } catch (error) {
-    console.error("Error fetching projects, using fallback:", error);
+    console.log("Backend API not reachable. Using fallback projects data for Projects Grid.");
     return FALLBACK_PROJECTS;
   }
 }

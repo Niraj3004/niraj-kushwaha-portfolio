@@ -63,7 +63,7 @@ async function getFeaturedProjects() {
     }
     return FALLBACK_PROJECTS;
   } catch (error) {
-    console.error("Error fetching projects, using fallback:", error);
+    console.log("Backend API not reachable. Using fallback projects data for Featured Projects.");
     return FALLBACK_PROJECTS;
   }
 }
