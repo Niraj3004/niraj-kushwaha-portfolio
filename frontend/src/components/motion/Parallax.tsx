@@ -7,7 +7,7 @@ import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface ParallaxProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   speed?: number; // 1 = normal scroll, < 1 = slower (parallax up), > 1 = faster (parallax down)
   className?: string;
 }
