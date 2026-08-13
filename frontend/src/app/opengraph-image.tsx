@@ -115,7 +115,7 @@ export default async function Image() {
             fontSize: "20px",
           }}
         >
-          nirajkushwaha.dev
+          nirajkushwaha.com.np
         </div>
       </div>
     ),

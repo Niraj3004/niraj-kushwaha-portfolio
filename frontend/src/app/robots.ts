@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin/", "/api/", "/_next/"],
       },
     ],
-    sitemap: "https://nirajkushwaha.dev/sitemap.xml",
+    sitemap: "https://nirajkushwaha.com.np/sitemap.xml",
   };
 }

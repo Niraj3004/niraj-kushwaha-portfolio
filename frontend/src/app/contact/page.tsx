@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Contact | Niraj Kushwaha",
     description: "Available for freelance projects, full-time roles, and collaboration opportunities.",
-    url: "https://nirajkushwaha.dev/contact",
+    url: "https://nirajkushwaha.com.np/contact",
   },
-  alternates: { canonical: "https://nirajkushwaha.dev/contact" },
+  alternates: { canonical: "https://nirajkushwaha.com.np/contact" },
 };
 
 

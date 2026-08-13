@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Projects | Niraj Kushwaha",
     description: "Full-stack web apps, mobile apps, and AI tools built for Nepal and beyond.",
-    url: "https://nirajkushwaha.dev/projects",
+    url: "https://nirajkushwaha.com.np/projects",
   },
-  alternates: { canonical: "https://nirajkushwaha.dev/projects" },
+  alternates: { canonical: "https://nirajkushwaha.com.np/projects" },
 };
 
 

@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const BASE_URL = "https://nirajkushwaha.dev";
+  const BASE_URL = "https://nirajkushwaha.com.np";
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
