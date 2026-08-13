@@ -31,6 +31,11 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 import routes from './routes';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger.config';
+
+// Swagger Docs
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
 app.use('/api', routes);

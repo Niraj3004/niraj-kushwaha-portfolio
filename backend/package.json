@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "seed": "ts-node src/scripts/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +26,8 @@
     "multer": "^2.2.0",
     "nodemailer": "^9.0.5",
     "streamifier": "^0.1.1",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -36,6 +39,8 @@
     "@types/node": "^26.2.0",
     "@types/nodemailer": "^8.0.1",
     "@types/streamifier": "^0.1.2",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
     "typescript": "^7.0.2"
