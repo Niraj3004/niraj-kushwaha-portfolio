@@ -7,29 +7,16 @@ import { Stagger, StaggerItem } from "../motion/Stagger";
 import { Badge } from "../ui/Badge";
 import { Reveal } from "../motion/Reveal";
 
-const SKILL_GROUPS = [
-  {
-    category: "Languages",
-    skills: ["JavaScript", "TypeScript", "Python", "Java"],
-  },
-  {
-    category: "Frontend",
-    skills: ["React", "Next.js", "React Native", "Tailwind", "Framer Motion"],
-  },
-  {
-    category: "Backend",
-    skills: ["Node.js", "Express", "MongoDB", "MySQL"],
-  },
-  {
-    category: "AI & Cloud",
-    skills: ["Prompt engineering", "AI-assisted development", "AWS (Academy)"],
-  },
+const DEFAULT_SKILL_GROUPS = [
+  { category: "Languages", skills: ["JavaScript", "TypeScript", "Python", "Java"] },
+  { category: "Frontend", skills: ["React", "Next.js", "React Native", "Tailwind", "Framer Motion"] },
+  { category: "Backend", skills: ["Node.js", "Express", "MongoDB", "MySQL"] },
+  { category: "AI & Cloud", skills: ["Prompt engineering", "AI-assisted development", "AWS (Academy)"] },
 ];
 
-// Combine all skills for the marquee
-const ALL_SKILLS = SKILL_GROUPS.flatMap((group) => group.skills);
-
-export const Skills = () => {
+export const Skills = ({ data }: { data?: any[] }) => {
+  const activeGroups = (data && data.length > 0) ? data.map(g => ({ category: g.category, skills: g.items })) : DEFAULT_SKILL_GROUPS;
+  const allSkills = activeGroups.flatMap((group) => group.skills);
   return (
     <section id="skills" className="py-32 overflow-hidden">
       <Container>
@@ -43,7 +30,7 @@ export const Skills = () => {
       {/* Marquee Rows */}
       <div className="flex flex-col gap-6 mb-24 mt-8">
         <Marquee speed="normal" direction="left" className="py-2">
-          {ALL_SKILLS.map((skill, i) => (
+          {allSkills.map((skill, i) => (
             <Badge 
               key={`row1-${i}`} 
               variant="outline" 
@@ -55,7 +42,7 @@ export const Skills = () => {
         </Marquee>
         
         <Marquee speed="normal" direction="right" className="py-2">
-          {[...ALL_SKILLS].reverse().map((skill, i) => (
+          {[...allSkills].reverse().map((skill, i) => (
             <Badge 
               key={`row2-${i}`} 
               variant="outline" 
@@ -70,7 +57,7 @@ export const Skills = () => {
       {/* Grouped Grid */}
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {SKILL_GROUPS.map((group, i) => (
+          {activeGroups.map((group, i) => (
             <Reveal key={group.category} delay={0.1 * i}>
               <div className="space-y-6">
                 <h4 className="text-small font-semibold text-ink uppercase tracking-wider border-b border-hairline pb-4">

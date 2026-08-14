@@ -6,40 +6,16 @@ import { Container } from "../ui/Container";
 import { SectionHeading } from "../ui/SectionHeading";
 import { Reveal } from "../motion/Reveal";
 
-const TIMELINE_DATA = [
-  {
-    year: "Present",
-    title: "AI & Full-Stack Development",
-    subtitle: "Independent Projects & Freelance",
-    description: "Building agentic systems, AI-assisted tools, and SaaS applications using Next.js, Express, and React Native. Focused on solving real-world problems in Nepal.",
-  },
-  {
-    year: "2023 - Present",
-    title: "BSc (Hons) Computing",
-    subtitle: "Islington College, Kathmandu",
-    description: "Studying core computer science concepts, software engineering principles, and advanced algorithms. Active member of the Islington Research Community (IRC).",
-  },
-  {
-    year: "2024",
-    title: "AWS Academy Graduate",
-    subtitle: "Cloud Foundations & Architecture",
-    description: "Completed comprehensive training on AWS cloud services, covering deployment, security, and scalable infrastructure architecture.",
-  },
-  {
-    year: "2023",
-    title: "MERN Stack Specialization",
-    subtitle: "Intensive Training & Bootcamp",
-    description: "Mastered MongoDB, Express, React, and Node.js. Built multiple full-stack applications including e-commerce platforms and management systems.",
-  },
-  {
-    year: "2022",
-    title: "The Beginning",
-    subtitle: "Self-Taught Journey",
-    description: "Wrote my first lines of code. Started with HTML/CSS and JavaScript, quickly moving into modern frontend frameworks and backend development.",
-  }
+const DEFAULT_TIMELINE_DATA = [
+  { year: "Present", title: "AI & Full-Stack Development", subtitle: "Independent Projects & Freelance", description: "Building agentic systems, AI-assisted tools, and SaaS applications using Next.js, Express, and React Native. Focused on solving real-world problems in Nepal." },
+  { year: "2023 - Present", title: "BSc (Hons) Computing", subtitle: "Islington College, Kathmandu", description: "Studying core computer science concepts, software engineering principles, and advanced algorithms. Active member of the Islington Research Community (IRC)." },
+  { year: "2024", title: "AWS Academy Graduate", subtitle: "Cloud Foundations & Architecture", description: "Completed comprehensive training on AWS cloud services, covering deployment, security, and scalable infrastructure architecture." },
+  { year: "2023", title: "MERN Stack Specialization", subtitle: "Intensive Training & Bootcamp", description: "Mastered MongoDB, Express, React, and Node.js. Built multiple full-stack applications including e-commerce platforms and management systems." },
+  { year: "2022", title: "The Beginning", subtitle: "Self-Taught Journey", description: "Wrote my first lines of code. Started with HTML/CSS and JavaScript, quickly moving into modern frontend frameworks and backend development." }
 ];
 
-export const Timeline = () => {
+export const Timeline = ({ data }: { data?: any[] }) => {
+  const timelineData = (data && data.length > 0) ? data : DEFAULT_TIMELINE_DATA;
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Track scroll progress through the timeline container
@@ -75,7 +51,7 @@ export const Timeline = () => {
 
           {/* Timeline Items */}
           <div className="space-y-16 md:space-y-24 relative z-10">
-            {TIMELINE_DATA.map((item, index) => {
+            {timelineData.map((item, index) => {
               const isEven = index % 2 === 0;
               return (
                 <Reveal key={index} delay={0.2}>

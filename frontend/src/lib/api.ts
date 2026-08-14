@@ -87,3 +87,10 @@ export const testimonialsApi = {
 export const contactApi = {
   getAll: () => request<{ data: any[] }>("/contact"),
 };
+
+// ── Homepage / Config ─────────────────────────────────────────
+export const homepageApi = {
+  get: () => request<{ data: any }>("/homepage"),
+  update: (formData: FormData) =>
+    request<{ data: any }>("/homepage", "PATCH", formData, true),
+};

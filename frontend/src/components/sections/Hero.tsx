@@ -10,7 +10,7 @@ import { Stagger, StaggerItem } from "../motion/Stagger";
 import { MagneticButton } from "../motion/MagneticButton";
 import { Parallax } from "../motion/Parallax";
 
-export const Hero = () => {
+export const Hero = ({ data }: { data?: any }) => {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20 pb-32">
       {/* Background Parallax Elements */}
@@ -28,21 +28,21 @@ export const Hero = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               </span>
-              Available for new projects
+              {data?.badge || "Available for new projects"}
             </Badge>
           </Reveal>
 
           {/* Main Headline */}
           <h1 className="text-display mb-6 tracking-tight">
-            <TextReveal text="Crafting digital experiences that" delay={0.2} />
+            <TextReveal text={data?.headline || "Crafting digital experiences that"} delay={0.2} />
             <br />
-            <TextReveal text="inspire and perform." delay={0.4} />
+            <TextReveal text={data?.subheadline || "inspire and perform."} delay={0.4} />
           </h1>
 
           {/* Subheading */}
           <Reveal delay={0.6}>
             <p className="text-h3 text-muted max-w-2xl mx-auto mb-12 font-sans font-normal">
-              I'm Niraj Kushwaha, a Full-Stack Developer from Kathmandu specializing in React, Next.js, and Node.js.
+              {data?.description || "I'm Niraj Kushwaha, a Full-Stack Developer from Kathmandu specializing in React, Next.js, and Node.js."}
             </p>
           </Reveal>
 

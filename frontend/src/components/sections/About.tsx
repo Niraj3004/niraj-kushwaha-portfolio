@@ -7,7 +7,7 @@ import { SectionHeading } from "../ui/SectionHeading";
 import { Reveal } from "../motion/Reveal";
 import { CountUp } from "../motion/CountUp";
 
-export const About = () => {
+export const About = ({ data }: { data?: any }) => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -23,10 +23,13 @@ export const About = () => {
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
               className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-hairline"
             >
-              {/* Replace with actual profile photo */}
-              <div className="absolute inset-0 bg-ink/5 flex items-center justify-center text-muted font-medium">
-                [Profile Photo - /profile.jpg]
-              </div>
+              {data?.photo ? (
+                <img src={data.photo} alt="Profile" className="absolute inset-0 w-full h-full object-cover" />
+              ) : (
+                <div className="absolute inset-0 bg-ink/5 flex items-center justify-center text-muted font-medium">
+                  [Profile Photo - Edit in Admin]
+                </div>
+              )}
             </motion.div>
           </div>
 
@@ -40,10 +43,10 @@ export const About = () => {
             <Reveal delay={0.2}>
               <div className="text-body text-muted leading-relaxed max-w-2xl space-y-4">
                 <p>
-                  I'm Niraj — a full-stack developer from Kathmandu who likes turning messy real-world problems into clean, usable products. I work across the MERN stack and React Native, and I'm increasingly focused on AI-assisted and agentic systems.
+                  {data?.bioParagraph1 || "I'm Niraj — a full-stack developer from Kathmandu who likes turning messy real-world problems into clean, usable products. I work across the MERN stack and React Native, and I'm increasingly focused on AI-assisted and agentic systems."}
                 </p>
                 <p>
-                  I'm studying BSc (Hons) Computing at Islington College, and much of what I build is aimed at helping Nepal's students, merchants, and communities.
+                  {data?.bioParagraph2 || "I'm studying BSc (Hons) Computing at Islington College, and much of what I build is aimed at helping Nepal's students, merchants, and communities."}
                 </p>
               </div>
             </Reveal>
@@ -51,18 +54,16 @@ export const About = () => {
             {/* Stats Row */}
             <Reveal delay={0.4}>
               <div className="flex flex-wrap gap-x-8 gap-y-4 pt-6 border-t border-hairline">
-                <div className="flex items-center gap-2 text-small font-medium text-ink">
-                  <CountUp end={4} suffix="+" className="text-h3 text-accent font-display" />
-                  <span className="uppercase tracking-wider">Projects Shipped</span>
-                </div>
-                <div className="flex items-center gap-2 text-small font-medium text-ink">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent/50" />
-                  <span className="uppercase tracking-wider">MERN + React Native</span>
-                </div>
-                <div className="flex items-center gap-2 text-small font-medium text-ink">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent/50" />
-                  <span className="uppercase tracking-wider">AI-assisted development</span>
-                </div>
+                {(data?.stats || []).map((stat: any, i: number) => (
+                  <div key={i} className="flex items-center gap-2 text-small font-medium text-ink">
+                    {stat.isNumber ? (
+                      <CountUp end={parseInt(stat.value) || 0} suffix="+" className="text-h3 text-accent font-display" />
+                    ) : (
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent/50" />
+                    )}
+                    <span className="uppercase tracking-wider">{stat.label}</span>
+                  </div>
+                ))}
               </div>
             </Reveal>
           </div>

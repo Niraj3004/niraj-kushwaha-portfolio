@@ -7,6 +7,7 @@ import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import {
   LayoutDashboard,
   FolderKanban,
+  FileText,
   MessageSquare,
   Star,
   LogOut,
@@ -17,6 +18,7 @@ import {
 
 const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { href: "/admin/homepage", label: "Homepage Data", icon: FileText },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/testimonials", label: "Testimonials", icon: Star },
   { href: "/admin/messages", label: "Messages", icon: MessageSquare },
