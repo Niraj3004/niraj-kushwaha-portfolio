@@ -13,8 +13,8 @@ export const Hero = ({ data }: { data?: any }) => {
   const scale = useTransform(scrollY, [0, 1000], [1, 1.1]);
 
   // Fallbacks
-  const headline = data?.headline || "Niraj Kushwaha";
-  const subheadline = data?.subheadline || "& Full Stack Dev";
+  const headline = data?.headline || "NIRAJ KUSHWAHA";
+  const subheadline = data?.subheadline || "WITH FULL STACK DEVELOPER";
   const badge = data?.badge || "👋 my name is Niraj and I am a freelance";
   const desc = data?.description || "based in Kathmandu, Nepal.";
 
