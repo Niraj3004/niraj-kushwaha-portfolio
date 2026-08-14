@@ -1,134 +1,166 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter, Code, Database, Smartphone } from "lucide-react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate, useVelocity } from "framer-motion";
+import { ArrowUpRight, Code, Terminal, Zap } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Container } from "../ui/Container";
-import Link from "next/link";
+import { Reveal } from "../motion/Reveal";
+import { MagneticButton } from "../motion/MagneticButton";
+import { CustomCursor } from "../motion/CustomCursor";
+import { ScrambleText } from "../motion/ScrambleText";
+import { LocalTimeBadge } from "../ui/LocalTimeBadge";
+import { Equalizer } from "../ui/Equalizer";
+import { FloatingBadge } from "../motion/FloatingBadge";
+import { Marquee } from "../motion/Marquee";
 
 export const Hero = ({ data }: { data?: any }) => {
-  // Fallbacks
-  const headline = data?.headline || "Niraj";
-  const subheadline = data?.subheadline || "FULL STACK DEVELOPER";
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    const handleResize = () => setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Scroll Parallax
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
+  const y2 = useTransform(scrollY, [0, 1000], [0, -100]);
+  const scale = useTransform(scrollY, [0, 1000], [1, 1.1]);
+
+  // Scroll Velocity (Skew effect)
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
+  const skewY = useTransform(smoothVelocity, [-1000, 1000], [-5, 5]);
+
+  // Mouse Tracking (Spotlight & 3D Tilt)
+  const mouseX = useMotionValue(windowSize.width / 2);
+  const mouseY = useMotionValue(windowSize.height / 2);
   
-  // Floating animation configuration
-  const floatingAnim = (duration: number, delay: number = 0) => ({
-    y: [0, -15, 0],
-    transition: {
-      duration: duration,
-      repeat: Infinity,
-      ease: "easeInOut",
-      delay: delay,
-    },
-  });
+  const handleMouseMove = (e: React.MouseEvent) => {
+    mouseX.set(e.clientX);
+    mouseY.set(e.clientY);
+  };
+
+  const spotlightX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const spotlightY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+  const spotlightBackground = useMotionTemplate`radial-gradient(800px circle at ${spotlightX}px ${spotlightY}px, rgba(0, 0, 0, 0.04), transparent 80%)`;
+
+  const rotateX = useTransform(mouseY, [0, windowSize.height || 1000], [5, -5]);
+  const rotateY = useTransform(mouseX, [0, windowSize.width || 1000], [-5, 5]);
+
+  // Fallbacks
+  const headline = data?.headline || "NIRAJ KUSHWAHA";
+  const subheadline = data?.subheadline || "FULL STACK DEVELOPER";
+  const desc = data?.description || "based in Kathmandu, Nepal.";
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-24 bg-[#F8FAFC]">
-      {/* Soft Background Elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
-        <div className="absolute top-1/4 left-1/4 w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] bg-blue-100/40 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-[30vw] h-[30vw] max-w-[500px] max-h-[500px] bg-indigo-100/40 rounded-full blur-[80px]"></div>
+    <section 
+      onMouseMove={handleMouseMove}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-24 bg-white selection:bg-ink selection:text-white"
+    >
+      <CustomCursor />
+
+      {/* Spotlight & Ambient Volumetric Glow */}
+      <motion.div className="absolute inset-0 z-0 pointer-events-none" style={{ background: spotlightBackground }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 blur-[120px] rounded-full z-0 pointer-events-none animate-pulse duration-[10s]"></div>
+
+      {/* Infinite Top Marquee */}
+      <div className="absolute top-0 left-0 w-full z-10 opacity-40">
+        <Marquee speed="normal" direction="left" className="py-2 border-b border-hairline bg-surface/50 backdrop-blur-sm">
+          {[...Array(10)].map((_, i) => (
+            <span key={i} className="text-xs font-mono tracking-widest text-ink mx-4 uppercase">
+              • OPEN FOR WORK • FULL STACK DEVELOPER • KATHMANDU, NEPAL
+            </span>
+          ))}
+        </Marquee>
       </div>
 
-      <Container className="relative z-10 w-full h-full flex items-center justify-center min-h-[80vh]">
+      <Container className="relative z-10 w-full h-full flex flex-col items-center justify-between min-h-[85vh]">
         
-        {/* Main Center Image */}
-        <div className="relative w-full max-w-4xl flex justify-center items-end h-[60vh] md:h-[70vh]">
+        {/* Top Badges */}
+        <div className="w-full flex flex-col md:flex-row justify-between items-center md:items-start mt-8 mb-12 gap-4">
+          <Reveal delay={0.1}>
+            <LocalTimeBadge />
+          </Reveal>
+          <Reveal delay={0.2}>
+            <Equalizer />
+          </Reveal>
+        </div>
+
+        {/* Editorial Layout Container with 3D Tilt */}
+        <motion.div 
+          style={{ rotateX, rotateY, transformPerspective: 1000 }}
+          className="relative w-full flex-grow flex items-center justify-center min-h-[60vh] md:min-h-[70vh]"
+        >
+          {/* Floating Tech Badges */}
+          <FloatingBadge delay={0.5} yOffset={20} duration={5} className="top-[10%] left-[10%] md:left-[20%] hidden md:block">
+            <Code size={18} className="text-accent" />
+            <span className="text-sm font-semibold text-ink">React</span>
+          </FloatingBadge>
+          <FloatingBadge delay={0.7} yOffset={15} duration={6} className="top-[40%] right-[5%] md:right-[15%] hidden lg:block">
+            <Terminal size={18} className="text-blue-500" />
+            <span className="text-sm font-semibold text-ink">Next.js</span>
+          </FloatingBadge>
+          <FloatingBadge delay={0.9} yOffset={25} duration={4.5} className="bottom-[10%] left-[5%] md:left-[25%] hidden sm:block">
+            <Zap size={18} className="text-amber-500" />
+            <span className="text-sm font-semibold text-ink">Node.js</span>
+          </FloatingBadge>
+
+          {/* Solid Text (Background layer) with Hacker Scramble */}
           <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="relative z-10 h-full max-w-lg lg:max-w-xl"
+            style={{ y: y1 }}
+            className="absolute top-[15%] md:top-[20%] z-0 select-none uppercase w-full text-center hover-target"
           >
-            <img 
-              src="/niraj.png" 
-              alt="Niraj Kushwaha" 
-              className="w-full h-full object-contain object-bottom drop-shadow-2xl" 
+            <ScrambleText 
+              text={headline} 
+              className="text-[14vw] md:text-[9vw] font-black leading-[0.85] tracking-tight text-ink"
             />
           </motion.div>
 
-          {/* Left Side: Floating Intro Card */}
+          {/* Portrait Image (Middle layer) with Skew Distortion */}
           <motion.div 
-            className="absolute left-0 lg:-left-12 top-1/4 z-20 hidden sm:block"
-            animate={floatingAnim(4)}
+            style={{ y: y2, scale, skewY }}
+            className="relative z-10 w-[350px] h-[450px] sm:w-[500px] sm:h-[600px] md:w-[700px] md:h-[850px] mt-12 md:mt-24 pointer-events-none"
           >
-            <div className="bg-white/90 backdrop-blur-md px-6 py-4 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-white/20 flex flex-col items-start gap-1">
-              <span className="text-sm font-medium text-muted flex items-center gap-2">
-                👋 Hello I am
-              </span>
-              <h2 className="text-3xl font-bold text-ink tracking-tight">{headline}</h2>
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent z-20 pointer-events-none h-full"></div>
+            <img 
+              src="/niraj.png" 
+              alt="Niraj Kushwaha" 
+              className="w-full h-full object-cover md:object-contain filter grayscale contrast-125 brightness-95" 
+              style={{ objectPosition: 'center bottom' }}
+            />
           </motion.div>
 
-          {/* Left Side: Floating Profession Badge */}
-          <motion.div 
-            className="absolute left-10 lg:-left-4 top-2/4 z-20 hidden sm:block"
-            animate={floatingAnim(5, 1)}
+          {/* Hollow Text (Foreground layer, overlapping image) */}
+          <motion.h1 
+            style={{ y: y1 }}
+            className="text-[14vw] md:text-[9vw] font-black leading-[0.85] tracking-tight text-outline text-center absolute bottom-[15%] md:bottom-[20%] z-30 pointer-events-none select-none uppercase w-full"
           >
-            <div className="bg-white/80 backdrop-blur-sm px-5 py-3 rounded-2xl shadow-lg border border-white/20">
-              <span className="text-xs font-semibold text-ink/70 tracking-widest uppercase">
-                {subheadline}
-              </span>
+            {subheadline}
+          </motion.h1>
+        </motion.div>
+
+        {/* Bottom Section (Description & CTAs) */}
+        <div className="w-full flex flex-col md:flex-row items-center md:items-end justify-between mt-12 md:mt-0 relative z-40">
+          <Reveal delay={0.4} className="mb-8 md:mb-0 text-center md:text-left">
+            <p className="text-h6 md:text-h5 text-ink/70 font-medium tracking-wide max-w-sm">
+              {desc}
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.6}>
+            <div className="flex items-center gap-4">
+              <MagneticButton strength={0.3} className="h-14 px-8 text-body font-semibold flex items-center gap-2 bg-ink text-white hover:bg-ink/90 rounded-full">
+                Visit site
+                <ArrowUpRight size={20} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </MagneticButton>
             </div>
-          </motion.div>
-
-          {/* Right Side: Floating Icons */}
-          <div className="absolute right-0 lg:-right-12 top-1/4 bottom-1/4 flex flex-col justify-between items-end z-20 hidden sm:flex">
-            
-            {/* Top Icon */}
-            <motion.div animate={floatingAnim(4.5, 0.5)} className="flex flex-col items-center gap-2 mr-12">
-              <div className="w-16 h-16 rounded-full bg-white shadow-xl flex items-center justify-center text-rose-500 border border-rose-50">
-                <Code size={24} />
-              </div>
-              <span className="text-[10px] font-bold tracking-widest text-muted uppercase">Frontend</span>
-            </motion.div>
-
-            {/* Middle Icon */}
-            <motion.div animate={floatingAnim(5.5, 1.5)} className="flex flex-col items-center gap-2">
-              <div className="w-24 h-24 rounded-full bg-blue-600 shadow-xl shadow-blue-600/20 flex items-center justify-center text-white border-4 border-white">
-                <Database size={32} />
-              </div>
-              <span className="text-[10px] font-bold tracking-widest text-muted uppercase mt-1">Backend</span>
-            </motion.div>
-
-            {/* Bottom Icon */}
-            <motion.div animate={floatingAnim(4, 2)} className="flex flex-col items-center gap-2 mr-8">
-              <div className="w-14 h-14 rounded-full bg-white shadow-lg flex items-center justify-center text-violet-500 border border-violet-50">
-                <Smartphone size={20} />
-              </div>
-              <span className="text-[10px] font-bold tracking-widest text-muted uppercase">Mobile</span>
-            </motion.div>
-          </div>
-
-          {/* Mobile Only: Simple Intro (visible only on small screens) */}
-          <div className="absolute bottom-10 inset-x-0 z-30 flex flex-col items-center text-center sm:hidden">
-             <div className="bg-white/90 backdrop-blur-md px-6 py-4 rounded-3xl shadow-xl w-11/12 max-w-sm">
-                <span className="text-sm font-medium text-muted">👋 Hello I am</span>
-                <h2 className="text-3xl font-bold text-ink mb-1">{headline}</h2>
-                <span className="text-xs font-semibold text-accent tracking-widest uppercase">{subheadline}</span>
-             </div>
-          </div>
-
+          </Reveal>
         </div>
+
       </Container>
-
-      {/* Far Left Social Pill */}
-      <motion.div 
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1 }}
-        className="absolute left-6 top-1/2 -translate-y-1/2 z-30 hidden md:flex flex-col gap-6 bg-white/80 backdrop-blur px-3 py-6 rounded-full shadow-lg border border-hairline"
-      >
-        <Link href="#" className="text-muted hover:text-ink hover:scale-110 transition-all p-2 rounded-full hover:bg-surface">
-          <Github size={20} />
-        </Link>
-        <Link href="#" className="text-muted hover:text-blue-600 hover:scale-110 transition-all p-2 rounded-full hover:bg-surface">
-          <Linkedin size={20} />
-        </Link>
-        <Link href="#" className="text-muted hover:text-sky-500 hover:scale-110 transition-all p-2 rounded-full hover:bg-surface">
-          <Twitter size={20} />
-        </Link>
-      </motion.div>
-
     </section>
   );
 };
