@@ -5,7 +5,6 @@ import Link from "next/link";
 import { projectsApi, postsApi, testimonialsApi, contactApi } from "@/lib/api";
 import {
   FolderKanban,
-  FileText,
   Star,
   MessageSquare,
   ArrowRight,
@@ -14,7 +13,6 @@ import {
 
 interface Stats {
   projects: number;
-  posts: number;
   testimonials: number;
   messages: number;
 }
@@ -26,15 +24,13 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [projects, posts, testimonials, messages] = await Promise.allSettled([
+        const [projects, testimonials, messages] = await Promise.allSettled([
           projectsApi.getAll(),
-          postsApi.getAll(),
           testimonialsApi.getAll(),
           contactApi.getAll(),
         ]);
         setStats({
           projects: projects.status === "fulfilled" ? (projects.value.data?.length ?? 0) : 0,
-          posts: posts.status === "fulfilled" ? (posts.value.data?.length ?? 0) : 0,
           testimonials: testimonials.status === "fulfilled" ? (testimonials.value.data?.length ?? 0) : 0,
           messages: messages.status === "fulfilled" ? (messages.value.data?.length ?? 0) : 0,
         });
@@ -53,14 +49,6 @@ export default function AdminDashboard() {
       href: "/admin/projects",
       color: "bg-violet-500",
       light: "bg-violet-50",
-    },
-    {
-      label: "Blog Posts",
-      value: stats?.posts,
-      icon: FileText,
-      href: "/admin/posts",
-      color: "bg-blue-500",
-      light: "bg-blue-50",
     },
     {
       label: "Testimonials",
@@ -120,7 +108,6 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
             { href: "/admin/projects/new", label: "Add New Project", icon: FolderKanban },
-            { href: "/admin/posts/new", label: "Write New Blog Post", icon: FileText },
             { href: "/admin/testimonials", label: "Manage Testimonials", icon: Star },
             { href: "/admin/messages", label: "View Messages", icon: MessageSquare },
           ].map((action) => (

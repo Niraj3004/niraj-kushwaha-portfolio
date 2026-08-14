@@ -11,7 +11,6 @@ const schema = z.object({
   author: z.string().min(1, "Author name is required"),
   role: z.string().min(1, "Role is required"),
   quote: z.string().min(10, "Quote must be at least 10 characters"),
-  avatar: z.string().url("Enter a valid URL").optional().or(z.literal("")),
 });
 type Values = z.infer<typeof schema>;
 
@@ -38,8 +37,19 @@ export default function AdminTestimonialsPage() {
     setIsSubmitting(true);
     setError("");
     try {
-      await testimonialsApi.create(data);
+      const formData = new FormData();
+      formData.append("author", data.author);
+      formData.append("role", data.role);
+      formData.append("quote", data.quote);
+
+      const fileInput = document.getElementById("avatar-upload") as HTMLInputElement;
+      if (fileInput?.files?.[0]) {
+        formData.append("avatar", fileInput.files[0]);
+      }
+
+      await testimonialsApi.create(formData);
       reset();
+      if (fileInput) fileInput.value = "";
       fetchTestimonials();
     } catch (err: any) {
       setError(err.message || "Failed to add testimonial.");
@@ -90,9 +100,9 @@ export default function AdminTestimonialsPage() {
             {errors.quote && <p className="text-red-500 text-xs">{errors.quote.message}</p>}
           </div>
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-ink uppercase tracking-wider">Avatar URL (optional)</label>
-            <input {...register("avatar")} type="url" placeholder="https://..." className="admin-input" />
-            {errors.avatar && <p className="text-red-500 text-xs">{errors.avatar.message}</p>}
+            <label className="text-xs font-semibold text-ink uppercase tracking-wider">Avatar Image (optional)</label>
+            <input type="file" accept="image/*" id="avatar-upload" className="admin-input py-2 cursor-pointer" />
+            <p className="text-xs text-muted">Upload a profile picture for the author</p>
           </div>
           {error && <div className="p-3 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm">{error}</div>}
           <button

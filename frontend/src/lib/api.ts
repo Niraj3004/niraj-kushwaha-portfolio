@@ -78,8 +78,8 @@ export const postsApi = {
 // ── Testimonials ──────────────────────────────────────────────
 export const testimonialsApi = {
   getAll: () => request<{ data: any[] }>("/testimonials"),
-  create: (body: unknown) =>
-    request<{ data: any }>("/testimonials", "POST", body),
+  create: (body: unknown | FormData) =>
+    request<{ data: any }>("/testimonials", "POST", body, body instanceof FormData),
   delete: (id: string) => request(`/testimonials/${id}`, "DELETE"),
 };
 
