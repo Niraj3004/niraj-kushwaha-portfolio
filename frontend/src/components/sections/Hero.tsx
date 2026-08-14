@@ -14,7 +14,7 @@ export const Hero = ({ data }: { data?: any }) => {
 
   // Fallbacks
   const headline = data?.headline || "NIRAJ KUSHWAHA";
-  const subheadline = data?.subheadline || "WITH FULL STACK DEVELOPER";
+  const subheadline = data?.subheadline || "FULL STACK DEVELOPER";
   const badge = data?.badge || "👋 my name is Niraj and I am a freelance";
   const desc = data?.description || "based in Kathmandu, Nepal.";
 
