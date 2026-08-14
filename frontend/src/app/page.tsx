@@ -1,21 +1,17 @@
-import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/Hero";
+import { About } from "@/components/sections/About";
+import { WhatIDo } from "@/components/sections/WhatIDo";
+import { Skills } from "@/components/sections/Skills";
+import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { Timeline } from "@/components/sections/Timeline";
+import { Contact } from "@/components/sections/Contact";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
-
-// Below-fold sections — only load their JS when the browser reaches them
-const About           = dynamic(() => import("@/components/sections/About").then(m => m.About));
-const WhatIDo         = dynamic(() => import("@/components/sections/WhatIDo").then(m => m.WhatIDo));
-const Skills          = dynamic(() => import("@/components/sections/Skills").then(m => m.Skills));
-const FeaturedProjects = dynamic(() => import("@/components/sections/FeaturedProjects").then(m => m.FeaturedProjects));
-const Testimonials    = dynamic(() => import("@/components/sections/Testimonials").then(m => m.Testimonials));
-const Timeline        = dynamic(() => import("@/components/sections/Timeline").then(m => m.Timeline));
-const Contact         = dynamic(() => import("@/components/sections/Contact").then(m => m.Contact));
 
 export default function Home() {
   return (
     <SmoothScroll>
       <div className="flex flex-col min-h-screen">
-        {/* Hero is eager — it's above the fold, must render immediately */}
         <Hero />
         <About />
         <WhatIDo />
@@ -28,4 +24,3 @@ export default function Home() {
     </SmoothScroll>
   );
 }
-

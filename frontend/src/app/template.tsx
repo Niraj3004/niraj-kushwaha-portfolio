@@ -1,7 +1,17 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col flex-1 animate-fade-in">
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 10 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="flex flex-col flex-1"
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }
