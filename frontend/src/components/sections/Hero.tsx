@@ -1,85 +1,88 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, Download } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { Container } from "../ui/Container";
-import { Badge } from "../ui/Badge";
 import { Reveal } from "../motion/Reveal";
-import { TextReveal } from "../motion/TextReveal";
 import { Stagger, StaggerItem } from "../motion/Stagger";
 import { MagneticButton } from "../motion/MagneticButton";
-import { Parallax } from "../motion/Parallax";
 
 export const Hero = ({ data }: { data?: any }) => {
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 1000], [0, 250]);
+  const y2 = useTransform(scrollY, [0, 1000], [0, -150]);
+  const scale = useTransform(scrollY, [0, 1000], [1, 1.15]);
+
+  // Fallbacks
+  const headline = data?.headline || "Webdesigner";
+  const subheadline = data?.subheadline || "& Photographer";
+  const badge = data?.badge || "👋 my name is Niraj and I am a freelance";
+  const desc = data?.description || "based in Kathmandu, Nepal.";
+
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20 pb-32">
-      {/* Background Parallax Elements */}
-      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-        <Parallax speed={0.8} className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px]" />
-        <Parallax speed={1.2} className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-surface rounded-full blur-[80px]" />
-      </div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-32 bg-white">
+      <Container className="relative z-10 w-full h-full flex flex-col items-center justify-center">
+        
+        {/* Top Text */}
+        <Reveal delay={0.1}>
+          <p className="text-body text-ink/70 font-medium mb-12">
+            {badge}
+          </p>
+        </Reveal>
 
-      <Container className="relative z-10">
-        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          {/* Availability Badge */}
-          <Reveal delay={0.1}>
-            <Badge variant="outline" className="mb-8 px-4 py-2 border-hairline bg-white/50 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2 mr-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              {data?.badge || "Available for new projects"}
-            </Badge>
-          </Reveal>
+        <div className="relative w-full flex flex-col items-center justify-center min-h-[60vh] md:min-h-[70vh]">
+          {/* Solid Text (Background layer) */}
+          <motion.h1 
+            style={{ y: y1 }}
+            className="text-[15vw] md:text-[12vw] font-black leading-none tracking-tighter text-ink text-center absolute top-0 md:top-10 z-0"
+          >
+            {headline}
+          </motion.h1>
 
-          {/* Main Headline */}
-          <h1 className="text-display mb-6 tracking-tight">
-            <TextReveal text={data?.headline || "Crafting digital experiences that"} delay={0.2} />
-            <br />
-            <TextReveal text={data?.subheadline || "inspire and perform."} delay={0.4} />
-          </h1>
-
-          {/* Subheading */}
-          <Reveal delay={0.6}>
-            <p className="text-h3 text-muted max-w-2xl mx-auto mb-12 font-sans font-normal">
-              {data?.description || "I'm Niraj Kushwaha, a Full-Stack Developer from Kathmandu specializing in React, Next.js, and Node.js."}
-            </p>
-          </Reveal>
-
-          {/* CTA Buttons */}
-          <Stagger delay={0.8} className="flex flex-col sm:flex-row items-center gap-6">
-            <StaggerItem>
-              <MagneticButton strength={0.3} className="h-14 px-8 text-body flex items-center gap-2">
-                View my work
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </MagneticButton>
-            </StaggerItem>
-            <StaggerItem>
-              <MagneticButton variant="ghost" strength={0.2} className="h-14 px-8 text-body flex items-center gap-2">
-                Download Resume
-                <Download size={20} className="group-hover:-translate-y-1 transition-transform" />
-              </MagneticButton>
-            </StaggerItem>
-          </Stagger>
-        </div>
-      </Container>
-
-      {/* Scroll indicator */}
-      <motion.div 
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-      >
-        <span className="text-small text-muted uppercase tracking-widest text-[10px]">Scroll</span>
-        <div className="w-[1px] h-12 bg-hairline relative overflow-hidden">
+          {/* Portrait Image (Middle layer) */}
           <motion.div 
-            className="w-full h-1/2 bg-ink absolute top-0"
-            animate={{ top: ["-50%", "150%"] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-          />
+            style={{ y: y2, scale }}
+            className="relative z-10 w-[280px] h-[350px] sm:w-[400px] sm:h-[500px] md:w-[500px] md:h-[600px] mt-24 md:mt-32"
+          >
+            <img 
+              src="/niraj.png" 
+              alt="Niraj Kushwaha" 
+              className="w-full h-full object-cover md:object-contain filter grayscale drop-shadow-2xl" 
+            />
+          </motion.div>
+
+          {/* Hollow Text (Foreground layer, overlapping image) */}
+          <motion.h1 
+            style={{ y: y1 }}
+            className="text-[15vw] md:text-[12vw] font-black leading-none tracking-tighter text-outline text-center absolute bottom-10 md:bottom-20 z-20 pointer-events-none"
+          >
+            {subheadline}
+          </motion.h1>
         </div>
-      </motion.div>
+
+        {/* Bottom Text */}
+        <Reveal delay={0.4}>
+          <p className="text-body text-ink/70 font-medium mt-16 md:mt-8 relative z-30">
+            {desc}
+          </p>
+        </Reveal>
+
+        {/* CTA Buttons */}
+        <Stagger delay={0.6} className="flex flex-col sm:flex-row items-center gap-6 mt-10 relative z-30">
+          <StaggerItem>
+            <MagneticButton strength={0.3} className="h-14 px-8 text-body flex items-center gap-2 bg-ink text-white hover:bg-ink/90">
+              View my work
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            </MagneticButton>
+          </StaggerItem>
+          <StaggerItem>
+            <MagneticButton variant="ghost" strength={0.2} className="h-14 px-8 text-body flex items-center gap-2 border border-hairline">
+              Contact me
+            </MagneticButton>
+          </StaggerItem>
+        </Stagger>
+
+      </Container>
     </section>
   );
 };
