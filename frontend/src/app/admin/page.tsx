@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { projectsApi, postsApi, testimonialsApi, contactApi } from "@/lib/api";
+import { projectsApi, testimonialsApi, contactApi } from "@/lib/api";
 import {
   FolderKanban,
   Star,

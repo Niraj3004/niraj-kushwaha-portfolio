@@ -30,7 +30,7 @@ export const Skills = ({ data }: { data?: any[] }) => {
       {/* Marquee Rows */}
       <div className="flex flex-col gap-6 mb-24 mt-8">
         <Marquee speed="normal" direction="left" className="py-2">
-          {allSkills.map((skill, i) => (
+          {allSkills.map((skill: any, i: number) => (
             <Badge 
               key={`row1-${i}`} 
               variant="outline" 
@@ -42,7 +42,7 @@ export const Skills = ({ data }: { data?: any[] }) => {
         </Marquee>
         
         <Marquee speed="normal" direction="right" className="py-2">
-          {[...allSkills].reverse().map((skill, i) => (
+          {[...allSkills].reverse().map((skill: any, i: number) => (
             <Badge 
               key={`row2-${i}`} 
               variant="outline" 
@@ -64,7 +64,7 @@ export const Skills = ({ data }: { data?: any[] }) => {
                   {group.category}
                 </h4>
                 <Stagger className="flex flex-col gap-3">
-                  {group.skills.map((skill) => (
+                  {group.skills.map((skill: any) => (
                     <StaggerItem key={skill}>
                       <span className="text-muted text-body hover:text-accent transition-colors duration-200">
                         {skill}
