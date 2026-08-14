@@ -59,6 +59,13 @@ export default function NewProjectPage() {
         : [];
       tags.forEach((tag) => formData.append("techTags[]", tag));
 
+      const fileInput = document.getElementById("image-upload") as HTMLInputElement;
+      if (fileInput?.files) {
+        Array.from(fileInput.files).forEach((file) => {
+          formData.append("images", file);
+        });
+      }
+
       await projectsApi.create(formData);
       router.push("/admin/projects");
     } catch (err: any) {
@@ -131,6 +138,17 @@ export default function NewProjectPage() {
             />
             <span className="text-sm text-ink font-medium">Mark as featured on homepage</span>
           </label>
+
+          <Field label="Project Images" error="">
+            <input
+              type="file"
+              multiple
+              accept="image/*"
+              id="image-upload"
+              className="admin-input py-2 cursor-pointer"
+            />
+            <p className="text-xs text-muted mt-1">Select up to 5 images (JPG, PNG, WebP)</p>
+          </Field>
         </div>
 
         {error && (

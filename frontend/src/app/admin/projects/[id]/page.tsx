@@ -80,6 +80,13 @@ export default function EditProjectPage() {
       const tags = data.techTags?.split(",").map((t) => t.trim()).filter(Boolean) || [];
       tags.forEach((tag) => formData.append("techTags[]", tag));
 
+      const fileInput = document.getElementById("image-upload") as HTMLInputElement;
+      if (fileInput?.files) {
+        Array.from(fileInput.files).forEach((file) => {
+          formData.append("images", file);
+        });
+      }
+
       await projectsApi.update(id, formData);
       router.push("/admin/projects");
     } catch (err: any) {
@@ -137,6 +144,17 @@ export default function EditProjectPage() {
             <input type="checkbox" {...register("featured")} className="w-4 h-4 rounded accent-accent" />
             <span className="text-sm text-ink font-medium">Mark as featured on homepage</span>
           </label>
+
+          <Field label="Add New Images" error="">
+            <input
+              type="file"
+              multiple
+              accept="image/*"
+              id="image-upload"
+              className="admin-input py-2 cursor-pointer"
+            />
+            <p className="text-xs text-muted mt-1">Upload new images to replace existing ones</p>
+          </Field>
         </div>
 
         {error && (
