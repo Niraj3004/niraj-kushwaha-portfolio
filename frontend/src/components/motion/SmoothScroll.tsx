@@ -1,42 +1,11 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import Lenis from "lenis";
+// SmoothScroll: removed Lenis to keep the main thread free.
+// Native smooth scrolling is handled via `scroll-behavior: smooth` in globals.css.
+// This wrapper is kept so all import sites don't need updating.
 
 interface SmoothScrollProps {
   children: React.ReactNode;
 }
 
-export const SmoothScroll = ({ children }: SmoothScrollProps) => {
-  const lenisRef = useRef<Lenis | null>(null);
-
-  useEffect(() => {
-    // Check if user prefers reduced motion
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) return;
-
-    lenisRef.current = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Expo.easeOut
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    });
-
-    const raf = (time: number) => {
-      lenisRef.current?.raf(time);
-      requestAnimationFrame(raf);
-    };
-
-    requestAnimationFrame(raf);
-
-    return () => {
-      lenisRef.current?.destroy();
-      lenisRef.current = null;
-    };
-  }, []);
-
-  return <>{children}</>;
-};
+export const SmoothScroll = ({ children }: SmoothScrollProps) => (
+  <>{children}</>
+);
