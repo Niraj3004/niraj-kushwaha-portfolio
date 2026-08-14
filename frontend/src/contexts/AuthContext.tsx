@@ -42,10 +42,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     const res = await authApi.login(email, password);
-    localStorage.setItem("admin_token", res.token);
-    localStorage.setItem("admin_user", JSON.stringify(res.user));
-    setToken(res.token);
-    setUser(res.user);
+    localStorage.setItem("admin_token", res.data.token);
+    localStorage.setItem("admin_user", JSON.stringify(res.data.user));
+    setToken(res.data.token);
+    setUser(res.data.user);
   };
 
   const logout = () => {

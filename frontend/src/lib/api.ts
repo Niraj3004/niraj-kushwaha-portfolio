@@ -47,7 +47,7 @@ async function request<T = unknown>(
 // ── Auth ──────────────────────────────────────────────────────
 export const authApi = {
   login: (email: string, password: string) =>
-    request<{ token: string; user: { email: string } }>(
+    request<{ data: { token: string; user: { email: string } } }>(
       "/auth/login",
       "POST",
       { email, password }
