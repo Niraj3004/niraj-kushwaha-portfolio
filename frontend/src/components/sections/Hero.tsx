@@ -13,8 +13,8 @@ export const Hero = ({ data }: { data?: any }) => {
   const scale = useTransform(scrollY, [0, 1000], [1, 1.1]);
 
   // Fallbacks
-  const headline = data?.headline || "Webdesigner";
-  const subheadline = data?.subheadline || "& Photographer";
+  const headline = data?.headline || "Niraj Kushwaha";
+  const subheadline = data?.subheadline || "& Full Stack Dev";
   const badge = data?.badge || "👋 my name is Niraj and I am a freelance";
   const desc = data?.description || "based in Kathmandu, Nepal.";
 
@@ -38,7 +38,7 @@ export const Hero = ({ data }: { data?: any }) => {
           {/* Solid Text (Background layer) */}
           <motion.h1 
             style={{ y: y1 }}
-            className="text-[18vw] md:text-[14vw] font-black leading-[0.8] tracking-tighter text-ink text-center absolute top-1/4 md:top-[15%] z-0 select-none uppercase w-full"
+            className="text-[14vw] md:text-[9vw] font-black leading-[0.85] tracking-tight text-ink text-center absolute top-[15%] md:top-[20%] z-0 select-none uppercase w-full"
           >
             {headline}
           </motion.h1>
@@ -46,7 +46,7 @@ export const Hero = ({ data }: { data?: any }) => {
           {/* Portrait Image (Middle layer) */}
           <motion.div 
             style={{ y: y2, scale }}
-            className="relative z-10 w-[300px] h-[400px] sm:w-[450px] sm:h-[550px] md:w-[600px] md:h-[750px] mt-12 md:mt-24"
+            className="relative z-10 w-[350px] h-[450px] sm:w-[500px] sm:h-[600px] md:w-[700px] md:h-[850px] mt-12 md:mt-24"
           >
             {/* Soft gradient mask at the bottom so the image fades out smoothly */}
             <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent z-20 pointer-events-none h-full"></div>
@@ -61,7 +61,7 @@ export const Hero = ({ data }: { data?: any }) => {
           {/* Hollow Text (Foreground layer, overlapping image) */}
           <motion.h1 
             style={{ y: y1 }}
-            className="text-[18vw] md:text-[14vw] font-black leading-[0.8] tracking-tighter text-outline text-center absolute bottom-1/4 md:bottom-[15%] z-30 pointer-events-none select-none uppercase w-full"
+            className="text-[14vw] md:text-[9vw] font-black leading-[0.85] tracking-tight text-outline text-center absolute bottom-[15%] md:bottom-[20%] z-30 pointer-events-none select-none uppercase w-full"
           >
             {subheadline}
           </motion.h1>
