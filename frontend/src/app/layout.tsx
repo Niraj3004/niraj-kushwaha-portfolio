@@ -262,8 +262,7 @@ const personJsonLd = {
   ],
   sameAs: [
     "https://github.com/Niraj3004",
-    // Add your LinkedIn URL here:
-    // "https://www.linkedin.com/in/nirajkushwaha",
+    "https://www.linkedin.com/in/nirajkushwaha3004",
   ],
 };
 
