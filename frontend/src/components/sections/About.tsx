@@ -320,8 +320,8 @@ export const About = ({ data }: { data?: any }) => {
               </div>
             </div>
             
-            <a href="/Niraj_Kushwaha__CV.pdf" download="Niraj_Kushwaha_CV.pdf" className="flex-shrink-0 z-10" onClick={(e) => { e.stopPropagation(); fireConfetti(); }}>
-              <MagneticButton strength={0.2} className={`group relative overflow-hidden rounded-full px-8 h-12 flex items-center justify-center font-medium shadow-xl hover:shadow-2xl transition-all ${hustleMode ? 'bg-white text-black' : 'bg-ink text-white'}`}>
+            <a href="/Niraj_Kushwaha__CV.pdf" download="Niraj_Kushwaha_CV.pdf" className="flex-shrink-0 z-10 select-none block" draggable={false} onClick={(e) => { e.stopPropagation(); fireConfetti(); }}>
+              <MagneticButton strength={0.2} className={`group relative overflow-hidden rounded-full px-8 h-12 flex items-center justify-center font-medium shadow-xl hover:shadow-2xl transition-all select-none ${hustleMode ? 'bg-white text-black' : 'bg-ink text-white'}`}>
                 <span className="flex items-center gap-2 group-hover:-translate-y-10 transition-transform duration-300 text-sm">
                   <Download size={14} /> Download CV
                 </span>
