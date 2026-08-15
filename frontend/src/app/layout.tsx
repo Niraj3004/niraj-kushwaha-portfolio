@@ -299,18 +299,16 @@ export default function RootLayout({
     >
       <head>
         {/* JSON-LD: Person schema — strongest Google signal for name searches */}
-        <Script
+        <script
           id="person-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-          strategy="beforeInteractive"
         />
         {/* JSON-LD: Website schema */}
-        <Script
+        <script
           id="website-jsonld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-          strategy="beforeInteractive"
         />
       </head>
       <body className="min-h-full flex flex-col font-sans selection:bg-accent selection:text-white">
