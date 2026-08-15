@@ -273,10 +273,10 @@ export const About = ({ data }: { data?: any }) => {
             <div className="flex items-center justify-around w-full mt-4 z-10">
               {[
                 { icon: Github, href: "https://github.com/Niraj3004", color: hustleMode ? "hover:text-white" : "hover:text-black", name: "GitHub" },
-                { icon: Linkedin, href: "https://linkedin.com/", color: "hover:text-blue-500", name: "LinkedIn" },
-                { icon: Facebook, href: "https://facebook.com/", color: "hover:text-blue-600", name: "Facebook" },
-                { icon: Instagram, href: "https://instagram.com/", color: "hover:text-pink-500", name: "Instagram" },
-                { icon: Mail, href: "mailto:niraj@infotechevolvix.com", color: "hover:text-red-500", name: "Email" }
+                { icon: Linkedin, href: "https://www.linkedin.com/in/nirajkushwaha3004?utm_source=share_via&utm_content=profile&utm_medium=member_android", color: "hover:text-blue-500", name: "LinkedIn" },
+                { icon: Facebook, href: "https://www.facebook.com/niraj3004kushwaha", color: "hover:text-blue-600", name: "Facebook" },
+                { icon: Instagram, href: "https://www.instagram.com/ni.raj_singh?igsh=enE4ZHNwa2c4ZzVu", color: "hover:text-pink-500", name: "Instagram" },
+                { icon: Mail, href: "mailto:nirajkushwaha3008@gmail.com", color: "hover:text-red-500", name: "Email" }
               ].map((social, i) => (
                 <motion.a 
                   key={i} 
