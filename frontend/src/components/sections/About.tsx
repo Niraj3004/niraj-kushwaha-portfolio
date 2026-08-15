@@ -86,8 +86,8 @@ export const About = ({ data }: { data?: any }) => {
     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#4F46E5', '#10B981', '#F59E0B', '#F43F5E'] });
   };
 
-  const bioP1 = data?.bioParagraph1 || "I'm Niraj — a Full-Stack Developer, AI-Agent builder, and the Founder & CEO of Evolvix Infotech. I specialize in turning complex real-world problems into clean, highly scalable web and mobile applications using the MERN stack and React Native.";
-  const bioP2 = data?.bioParagraph2 || "Currently pursuing a BSc (Hons) in Computing at Islington College. When I'm not studying or writing code, I'm scaling operations at Evolvix and helping modern businesses operate faster and smarter.";
+  const bioP1 = data?.bioParagraph1 || "I'm Niraj — a Full-Stack Developer, Founder of Evolvix, and AI enthusiast.";
+  const bioP2 = data?.bioParagraph2 || "I build scalable apps with MERN & React Native. Currently studying at Islington College while scaling my company and diving into Machine Learning.";
   const firstLetter = bioP1.charAt(0);
   const restOfP1 = bioP1.slice(1);
 
@@ -114,13 +114,8 @@ export const About = ({ data }: { data?: any }) => {
                 Building Agents
               </div>
 
-              {/* Image Crossfade (Personal to Company Logo) */}
-              <img src="/niraj2.jpeg" alt="Niraj" onError={(e) => e.currentTarget.src = data?.photo || '/placeholder.jpg'} className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 brightness-110" />
-              <div className="absolute inset-0 w-full h-full bg-white flex flex-col items-center justify-center opacity-0 transition-all duration-700 ease-in-out group-hover:opacity-100 group-hover:scale-105 p-6 text-center border border-hairline">
-                <img src="/logo%20company.png" alt="Evolvix Infotech Logo" onError={(e) => e.currentTarget.style.display = 'none'} className="w-24 h-auto mb-4" />
-                <h3 className="text-ink font-display font-bold text-xl">Evolvix Infotech</h3>
-                <p className="text-ink/60 text-xs mt-2 uppercase tracking-widest font-semibold">Founder & CEO</p>
-              </div>
+              {/* Static Personal Image */}
+              <img src="/niraj2.jpeg" alt="Niraj" onError={(e) => e.currentTarget.src = data?.photo || '/placeholder.jpg'} className="absolute inset-0 w-full h-full object-cover brightness-110" />
             </motion.div>
           </BentoCard>
 
