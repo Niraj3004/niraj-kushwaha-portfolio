@@ -87,7 +87,10 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  /* Custom Text Selection Highlight */
+  }
+}
+
+/* Custom Text Selection Highlight */
   ::selection {
     background-color: #3b82f6; /* Accent blue */
     color: white;
