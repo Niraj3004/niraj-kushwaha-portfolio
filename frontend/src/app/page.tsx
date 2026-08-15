@@ -1,6 +1,5 @@
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
-import { WhatIDo } from "@/components/sections/WhatIDo";
 import { Skills } from "@/components/sections/Skills";
 import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
 import { Testimonials } from "@/components/sections/Testimonials";
@@ -28,7 +27,6 @@ export default async function Home() {
       <div className="flex flex-col min-h-screen">
         <Hero data={data?.hero} />
         <About data={data?.about} />
-        <WhatIDo data={data?.services} />
         <Skills data={data?.skills} />
         <FeaturedProjects />
         <Testimonials />
