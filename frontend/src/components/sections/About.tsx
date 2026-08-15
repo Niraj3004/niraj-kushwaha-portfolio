@@ -58,6 +58,17 @@ export const About = ({ data }: { data?: any }) => {
   const [playingAudio, setPlayingAudio] = useState(false);
   const localTime = useLocalTime();
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const p1 = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [0, -40]);
+  const p2 = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [0, 40]);
+  const p3 = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [0, -20]);
+  const p4 = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [0, 20]);
+
   // Dynamic Age Calculator
   useEffect(() => {
     const birthDate = new Date("2003-04-30T00:00:00").getTime();
@@ -120,7 +131,7 @@ export const About = ({ data }: { data?: any }) => {
   const restOfP1 = bioP1.slice(1);
 
   return (
-    <section id="about" className={`py-32 relative text-selection-accent transition-colors duration-1000 ${hustleMode ? 'bg-ink text-white font-sans' : 'bg-surface text-ink'}`}>
+    <section ref={sectionRef} id="about" className={`py-32 relative text-selection-accent transition-colors duration-1000 ${hustleMode ? 'bg-ink text-white font-sans' : 'bg-surface text-ink'}`}>
       <Container>
         <div className="flex flex-col items-center justify-center mb-16 gap-6 text-center">
           <SectionHeading heading="About Me" className="mb-0 mx-auto" />
@@ -130,7 +141,7 @@ export const About = ({ data }: { data?: any }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[150px] md:auto-rows-[150px]">
 
           {/* 1. Main Photo Card / Dual Image Crossfade (Col Span 1, Row Span 3) */}
-          <BentoCard delay={0.1} className={`row-span-2 md:col-span-1 md:row-span-3 p-0! group cinematic-grain relative ${hustleMode ? 'border-red-500/30' : ''}`} style={{ perspective: "1000px" }}>
+          <BentoCard delay={0.1} className={`row-span-2 md:col-span-1 md:row-span-3 p-0! group cinematic-grain relative ${hustleMode ? 'border-red-500/30' : ''}`} style={{ perspective: "1000px", y: p1 }}>
             <motion.div
               style={{ rotateX: shouldReduceMotion ? 0 : rotateX, rotateY: shouldReduceMotion ? 0 : rotateY, transformStyle: "preserve-3d" }}
               onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}
@@ -151,6 +162,7 @@ export const About = ({ data }: { data?: any }) => {
           <BentoCard 
             delay={0.2} 
             className={`md:col-span-2 lg:col-span-2 md:row-span-2 relative overflow-hidden group ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}
+            style={{ y: p2 }}
           >
             <div ref={bioRef} onMouseMove={handleBioMouseMove} className="absolute inset-0 z-0">
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${hustleMode ? 'rgba(239, 68, 68, 0.1)' : 'rgba(59, 130, 246, 0.08)'}, transparent 40%)` }} />
@@ -195,7 +207,7 @@ export const About = ({ data }: { data?: any }) => {
           </BentoCard>
 
           {/* 3. Location & Time Card */}
-          <BentoCard delay={0.3} className={`md:col-span-1 md:row-span-1 flex flex-col justify-between items-center text-center ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
+          <BentoCard delay={0.3} className={`md:col-span-1 md:row-span-1 flex flex-col justify-between items-center text-center ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`} style={{ y: p3 }}>
             <Globe className={`absolute -bottom-4 -right-4 w-32 h-32 ${hustleMode ? 'text-red-500/20' : 'text-accent/20'}`} strokeWidth={1} />
             <div className="w-full flex justify-between items-center z-10">
               <span className="text-xs font-medium uppercase tracking-widest text-muted">HQ Time</span>
@@ -206,7 +218,7 @@ export const About = ({ data }: { data?: any }) => {
           </BentoCard>
 
           {/* 4. Education / Studies Card */}
-          <BentoCard delay={0.4} className={`md:col-span-1 md:row-span-1 p-0! overflow-hidden ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
+          <BentoCard delay={0.4} className={`md:col-span-1 md:row-span-1 p-0! overflow-hidden ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`} style={{ y: p4 }}>
             <a href="https://islington.edu.np/" target="_blank" rel="noopener noreferrer" className="w-full h-full p-6 flex flex-col justify-center items-center gap-3 transition-colors hover:bg-black/5">
               <img src="/college%20logo.png" alt="Islington College" className="w-12 h-auto object-contain" onError={(e) => e.currentTarget.style.display = 'none'} />
               <div className="text-center">
@@ -217,7 +229,7 @@ export const About = ({ data }: { data?: any }) => {
           </BentoCard>
 
           {/* 5. CEO & Founder Card */}
-          <BentoCard delay={0.5} className={`md:col-span-1 md:row-span-1 p-0! overflow-hidden ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
+          <BentoCard delay={0.5} className={`md:col-span-1 md:row-span-1 p-0! overflow-hidden ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`} style={{ y: p1 }}>
             <a href="https://infotechevolvix.com" target="_blank" rel="noopener noreferrer" className="w-full h-full p-6 flex flex-col justify-center items-center text-center transition-colors hover:bg-black/5 relative group">
               <ArrowUpRight className={`absolute top-4 right-4 w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity ${hustleMode ? 'text-white/50' : 'text-ink/30'}`} />
               <img src="/logo%20company.png" alt="Evolvix Infotech" className="h-12 w-auto object-contain mb-2" onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling?.classList.remove('hidden'); }} />
@@ -228,7 +240,7 @@ export const About = ({ data }: { data?: any }) => {
           </BentoCard>
 
           {/* 6. GitHub Contribution Graph */}
-          <BentoCard delay={0.6} className={`md:col-span-2 md:row-span-2 flex flex-col justify-between ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
+          <BentoCard delay={0.6} className={`md:col-span-2 md:row-span-2 flex flex-col justify-between ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`} style={{ y: p2 }}>
             <div className="flex justify-between items-center w-full mb-4">
               <span className="text-xs font-medium uppercase tracking-widest text-muted flex items-center gap-1">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> 
@@ -268,7 +280,7 @@ export const About = ({ data }: { data?: any }) => {
           </BentoCard>
 
           {/* 6.5 Social Links Card (Fills the gap in Row 4) */}
-          <BentoCard delay={0.65} className={`md:col-span-2 md:row-span-1 flex flex-col justify-center items-center overflow-hidden ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
+          <BentoCard delay={0.65} className={`md:col-span-2 md:row-span-1 flex flex-col justify-center items-center overflow-hidden ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`} style={{ y: p3 }}>
             <span className="text-xs font-medium uppercase tracking-widest text-muted absolute top-4 left-4 z-10">Connect</span>
             <div className="flex items-center justify-around w-full mt-4 z-10">
               {[
@@ -304,7 +316,7 @@ export const About = ({ data }: { data?: any }) => {
           </BentoCard>
 
           {/* 7. Stats & CV Download */}
-          <BentoCard delay={0.7} className={`md:col-span-3 lg:col-span-4 md:row-span-1 flex flex-col sm:flex-row justify-between items-center gap-6 cursor-pointer transition-colors ${hustleMode ? 'bg-[#111] border-white/10 hover:bg-white/5' : 'bg-white hover:bg-hairline/50'}`} onClick={fireConfetti}>
+          <BentoCard delay={0.7} className={`md:col-span-3 lg:col-span-4 md:row-span-1 flex flex-col sm:flex-row justify-between items-center gap-6 cursor-pointer transition-colors ${hustleMode ? 'bg-[#111] border-white/10 hover:bg-white/5' : 'bg-white hover:bg-hairline/50'}`} onClick={fireConfetti} style={{ y: p4 }}>
             <div className="flex gap-8 md:gap-16 w-full justify-around sm:justify-start">
               <div className="flex flex-col gap-1 items-center sm:items-start pointer-events-none">
                 <div className="flex items-baseline gap-1"><CountUp end={5} className="text-3xl font-black font-display" /><span className={hustleMode ? 'text-red-500' : 'text-accent font-bold'}>+</span></div>
@@ -333,14 +345,14 @@ export const About = ({ data }: { data?: any }) => {
           </BentoCard>
 
           {/* 8. Draggable Fun Facts (Absolute positioned within a bento) */}
-          <BentoCard delay={0.8} className="md:col-span-1 md:row-span-1 overflow-visible! bg-transparent border-0! p-0!">
+          <BentoCard delay={0.8} className="md:col-span-1 md:row-span-1 overflow-visible! bg-transparent border-0! p-0!" style={{ y: p1 }}>
             <motion.div drag dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }} className="w-full h-full bg-[#fde68a] rounded-3xl p-6 flex flex-col justify-center items-center shadow-sm cursor-grab active:cursor-grabbing hover:rotate-3 transition-transform">
               <Coffee className="text-yellow-700 mb-2" size={24} />
               <span className="text-sm font-bold text-yellow-900 text-center">Coffee Dependent</span>
             </motion.div>
           </BentoCard>
           
-          <BentoCard delay={0.9} className="md:col-span-1 md:row-span-1 overflow-visible! bg-transparent border-0! p-0!">
+          <BentoCard delay={0.9} className="md:col-span-1 md:row-span-1 overflow-visible! bg-transparent border-0! p-0!" style={{ y: p4 }}>
             <motion.div drag dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }} className={`w-full h-full rounded-3xl p-6 flex flex-col justify-center items-center shadow-sm cursor-grab active:cursor-grabbing hover:-rotate-3 transition-transform ${hustleMode ? 'bg-red-900' : 'bg-purple-100'}`}>
               <Keyboard className={hustleMode ? 'text-red-300 mb-2' : 'text-purple-600 mb-2'} size={24} />
               <span className={`text-sm font-bold text-center ${hustleMode ? 'text-white' : 'text-purple-900'}`}>Keyboard Fanatic</span>
@@ -348,7 +360,7 @@ export const About = ({ data }: { data?: any }) => {
           </BentoCard>
 
           {/* 9. Hybrid Dev/Business Marquee */}
-          <BentoCard delay={1.0} className={`md:col-span-2 md:row-span-1 flex flex-col justify-center overflow-hidden ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
+          <BentoCard delay={1.0} className={`md:col-span-2 md:row-span-1 flex flex-col justify-center overflow-hidden ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`} style={{ y: p2 }}>
             <span className="text-xs font-medium uppercase tracking-widest text-muted absolute top-4 left-4 z-10 bg-inherit pr-2">Core Tech Stack</span>
             <div className="flex gap-4 mt-6">
               <motion.div 

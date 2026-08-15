@@ -11,6 +11,7 @@ export const BentoCard = ({
   className?: string;
   delay?: number;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  style?: React.CSSProperties | any;
 }) => {
   return (
     <motion.div
@@ -20,6 +21,7 @@ export const BentoCard = ({
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={`relative rounded-3xl bg-surface border border-hairline overflow-hidden p-6 sm:p-8 flex flex-col ${className}`}
       onClick={onClick}
+      style={style}
     >
       {children}
     </motion.div>
