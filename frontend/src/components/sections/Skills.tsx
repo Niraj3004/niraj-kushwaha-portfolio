@@ -2,9 +2,7 @@
 
 import { Container } from "../ui/Container";
 import { SectionHeading } from "../ui/SectionHeading";
-import { Marquee } from "../motion/Marquee";
 import { Stagger, StaggerItem } from "../motion/Stagger";
-import { Badge } from "../ui/Badge";
 import { Reveal } from "../motion/Reveal";
 
 const DEFAULT_SKILL_GROUPS = [
@@ -27,36 +25,9 @@ export const Skills = ({ data }: { data?: any[] }) => {
         />
       </Container>
 
-      {/* Marquee Rows */}
-      <div className="flex flex-col gap-6 mb-24 mt-8">
-        <Marquee speed="normal" direction="left" className="py-2">
-          {allSkills.map((skill: any, i: number) => (
-            <Badge 
-              key={`row1-${i}`} 
-              variant="outline" 
-              className="text-body py-3 px-6 mx-3 bg-white border-hairline hover:-translate-y-1 hover:border-accent hover:text-accent transition-all duration-300 cursor-default"
-            >
-              {skill}
-            </Badge>
-          ))}
-        </Marquee>
-        
-        <Marquee speed="normal" direction="right" className="py-2">
-          {[...allSkills].reverse().map((skill: any, i: number) => (
-            <Badge 
-              key={`row2-${i}`} 
-              variant="outline" 
-              className="text-body py-3 px-6 mx-3 bg-white border-hairline hover:-translate-y-1 hover:border-accent hover:text-accent transition-all duration-300 cursor-default"
-            >
-              {skill}
-            </Badge>
-          ))}
-        </Marquee>
-      </div>
-
       {/* Grouped Grid */}
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-16">
           {activeGroups.map((group, i) => (
             <Reveal key={group.category} delay={0.1 * i}>
               <div className="space-y-6">

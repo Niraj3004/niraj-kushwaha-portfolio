@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform, useScroll, AnimatePresence } from "framer-motion";
-import { Code, Type, Download, MapPin, Music, Check, Copy, Volume2, Globe, Terminal, Briefcase, Coffee, Keyboard, TrendingUp, Users, Calendar, ArrowUpRight, Zap, BookOpen, Mail, Server, Cpu } from "lucide-react";
+import { Code, Type, Download, MapPin, Music, Check, Copy, Volume2, Globe, Terminal, Briefcase, Coffee, Keyboard, TrendingUp, Users, Calendar, ArrowUpRight, Zap, BookOpen, Mail } from "lucide-react";
 import confetti from "canvas-confetti";
 
 const Facebook = (props: any) => (
@@ -114,8 +114,8 @@ export const About = ({ data }: { data?: any }) => {
     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#4F46E5', '#10B981', '#F59E0B', '#F43F5E'] });
   };
 
-  const bioP1 = data?.bioParagraph1 || "I architect scalable Node.js backend systems and build cross-platform applications. I'm Niraj, Founder of Evolvix Infotech.";
-  const bioP2 = data?.bioParagraph2 || "I blend technical execution with business strategy to deliver high-performance products, while pursuing my BSc in Computing and researching applied AI.";
+  const bioP1 = data?.bioParagraph1 || "I'm Niraj — a Full-Stack Developer (Node.js Backend focus), AI enthusiast, and Founder of Evolvix Infotech.";
+  const bioP2 = data?.bioParagraph2 || "I build scalable apps with MERN & React Native. Currently studying at Islington College while scaling Evolvix and diving into Machine Learning.";
   const firstLetter = bioP1.charAt(0);
   const restOfP1 = bioP1.slice(1);
 
@@ -332,18 +332,18 @@ export const About = ({ data }: { data?: any }) => {
             </a>
           </BentoCard>
 
-          {/* 8. Core Competencies (Draggable) */}
+          {/* 8. Draggable Fun Facts (Absolute positioned within a bento) */}
           <BentoCard delay={0.8} className="md:col-span-1 md:row-span-1 overflow-visible! bg-transparent border-0! p-0!">
-            <motion.div drag dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }} className="w-full h-full bg-blue-100 rounded-3xl p-6 flex flex-col justify-center items-center shadow-sm cursor-grab active:cursor-grabbing hover:rotate-3 transition-transform">
-              <Server className="text-blue-600 mb-2" size={24} />
-              <span className="text-sm font-bold text-blue-900 text-center leading-tight">System<br/>Architecture</span>
+            <motion.div drag dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }} className="w-full h-full bg-[#fde68a] rounded-3xl p-6 flex flex-col justify-center items-center shadow-sm cursor-grab active:cursor-grabbing hover:rotate-3 transition-transform">
+              <Coffee className="text-yellow-700 mb-2" size={24} />
+              <span className="text-sm font-bold text-yellow-900 text-center">Coffee Dependent</span>
             </motion.div>
           </BentoCard>
           
           <BentoCard delay={0.9} className="md:col-span-1 md:row-span-1 overflow-visible! bg-transparent border-0! p-0!">
-            <motion.div drag dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }} className={`w-full h-full rounded-3xl p-6 flex flex-col justify-center items-center shadow-sm cursor-grab active:cursor-grabbing hover:-rotate-3 transition-transform ${hustleMode ? 'bg-red-900' : 'bg-emerald-100'}`}>
-              <Cpu className={hustleMode ? 'text-red-300 mb-2' : 'text-emerald-600 mb-2'} size={24} />
-              <span className={`text-sm font-bold text-center leading-tight ${hustleMode ? 'text-white' : 'text-emerald-900'}`}>AI & ML<br/>Integrations</span>
+            <motion.div drag dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }} className={`w-full h-full rounded-3xl p-6 flex flex-col justify-center items-center shadow-sm cursor-grab active:cursor-grabbing hover:-rotate-3 transition-transform ${hustleMode ? 'bg-red-900' : 'bg-purple-100'}`}>
+              <Keyboard className={hustleMode ? 'text-red-300 mb-2' : 'text-purple-600 mb-2'} size={24} />
+              <span className={`text-sm font-bold text-center ${hustleMode ? 'text-white' : 'text-purple-900'}`}>Keyboard Fanatic</span>
             </motion.div>
           </BentoCard>
 
