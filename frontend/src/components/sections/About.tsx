@@ -26,7 +26,7 @@ export const About = ({ data }: { data?: any }) => {
   const [viewMode, setViewMode] = useState<'text' | 'code'>('text');
   const [copied, setCopied] = useState(false);
   const [age, setAge] = useState<string>("21.00000000");
-  const [hustleMode, setHustleMode] = useState(false);
+  const [hustleMode] = useState(false);
   const [playingAudio, setPlayingAudio] = useState(false);
   const localTime = useLocalTime();
 
@@ -96,14 +96,6 @@ export const About = ({ data }: { data?: any }) => {
       <Container>
         <div className="flex flex-col items-center justify-center mb-16 gap-6 text-center">
           <SectionHeading heading="About Me" className="mb-0 mx-auto" />
-          
-          {/* Secret Hustle Mode Toggle */}
-          <button 
-            onClick={() => setHustleMode(!hustleMode)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-colors shadow-lg ${hustleMode ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white' : 'bg-white text-ink border border-hairline hover:bg-hairline'}`}
-          >
-            <Zap size={14} className={hustleMode ? "animate-pulse" : ""} /> {hustleMode ? "Hustle Mode: ON" : "Hustle Mode"}
-          </button>
         </div>
 
         {/* 20-FEATURE HYBRID BENTO GRID */}
@@ -203,7 +195,9 @@ export const About = ({ data }: { data?: any }) => {
 
           {/* 5. CEO & Founder Card (Replaced Age Ticker) */}
           <BentoCard delay={0.5} className={`md:col-span-1 md:row-span-1 flex flex-col justify-center items-center text-center ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
-            <img src="/logo%20company.png" alt="Evolvix Infotech" className="h-8 w-auto object-contain mb-2" onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling?.classList.remove('hidden'); }} />
+          <a href="https://infotechevolvix.com" target="_blank" rel="noopener noreferrer">
+            <img src="/logo%20company.png" alt="Evolvix Infotech" className="h-15 w-auto object-contain mb-2" onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling?.classList.remove('hidden'); }} />
+            </a>
             <Briefcase className={`w-8 h-8 mb-2 hidden ${hustleMode ? 'text-red-400' : 'text-accent'}`} />
             <div className={`font-bold text-sm ${hustleMode ? 'text-white' : 'text-ink'}`}>CEO & Founder</div>
             <div className={`text-[10px] uppercase tracking-widest font-bold mt-1 ${hustleMode ? 'text-white/50' : 'text-accent'}`}>Evolvix Infotech</div>
@@ -277,14 +271,39 @@ export const About = ({ data }: { data?: any }) => {
           {/* 9. Hybrid Dev/Business Marquee */}
           <BentoCard delay={1.0} className={`md:col-span-2 md:row-span-1 flex flex-col justify-center overflow-hidden ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
             <span className="text-xs font-medium uppercase tracking-widest text-muted absolute top-4 left-4 z-10 bg-inherit pr-2">Core Tech Stack</span>
-            <div className="flex gap-4 mt-4 opacity-70">
+            <div className="flex gap-4 mt-6">
               <motion.div 
                 animate={{ x: ["0%", "-50%"] }} 
-                transition={{ ease: "linear", duration: 15, repeat: Infinity }}
-                className="flex gap-8 whitespace-nowrap items-center font-display font-bold text-lg"
+                transition={{ ease: "linear", duration: 25, repeat: Infinity }}
+                className="flex gap-4 whitespace-nowrap items-center"
               >
-                <span>React</span> • <span>Next.js</span> • <span>Node.js</span> • <span>TypeScript</span> • <span>AWS</span> • <span>React Native</span> • <span>Tailwind</span> • 
-                <span>React</span> • <span>Next.js</span> • <span>Node.js</span> • <span>TypeScript</span> • <span>AWS</span> • <span>React Native</span> • <span>Tailwind</span>
+                {[
+                  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" },
+                  { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" },
+                  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" },
+                  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" },
+                  { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" },
+                  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" },
+                  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
+                  { name: "GraphQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/graphql/graphql-plain.svg" },
+                  { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" },
+                  { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" },
+                  // Duplicate for seamless loop
+                  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" },
+                  { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" },
+                  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" },
+                  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" },
+                  { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" },
+                  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" },
+                  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" },
+                  { name: "GraphQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/graphql/graphql-plain.svg" },
+                  { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" },
+                  { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" }
+                ].map((tech, i) => (
+                  <div key={i} className="w-14 h-14 flex-shrink-0 bg-white rounded-2xl shadow-sm border border-black/5 flex items-center justify-center p-2.5 hover:scale-110 transition-transform">
+                    <img src={tech.icon} alt={tech.name} className="w-full h-full object-contain" />
+                  </div>
+                ))}
               </motion.div>
             </div>
           </BentoCard>
