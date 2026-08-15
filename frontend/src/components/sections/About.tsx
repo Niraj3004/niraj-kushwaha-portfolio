@@ -86,8 +86,8 @@ export const About = ({ data }: { data?: any }) => {
     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#4F46E5', '#10B981', '#F59E0B', '#F43F5E'] });
   };
 
-  const bioP1 = data?.bioParagraph1 || "I'm Niraj — a Full-Stack Developer, Founder of Evolvix, and AI enthusiast.";
-  const bioP2 = data?.bioParagraph2 || "I build scalable apps with MERN & React Native. Currently studying at Islington College while scaling my company and diving into Machine Learning.";
+  const bioP1 = data?.bioParagraph1 || "I'm Niraj — a passionate Full-Stack Developer, AI enthusiast, and the Founder of Evolvix Infotech.";
+  const bioP2 = data?.bioParagraph2 || "I specialize in building highly scalable applications using the MERN stack and React Native. Currently, I am pursuing my BSc in Computing at Islington College, all while scaling operations at my company and diving deep into the fascinating world of Machine Learning.";
   const firstLetter = bioP1.charAt(0);
   const restOfP1 = bioP1.slice(1);
 
@@ -199,35 +199,38 @@ export const About = ({ data }: { data?: any }) => {
           </BentoCard>
 
           {/* 6. GitHub Contribution Graph */}
-          <BentoCard delay={0.6} className={`md:col-span-2 md:row-span-1 flex flex-col justify-between ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
-            <div className="flex justify-between items-center w-full mb-2">
+          <BentoCard delay={0.6} className={`md:col-span-2 md:row-span-2 flex flex-col justify-between ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
+            <div className="flex justify-between items-center w-full mb-4">
               <span className="text-xs font-medium uppercase tracking-widest text-muted flex items-center gap-1">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> 
                 Contributions
               </span>
               <span className={`text-xs font-bold ${hustleMode ? 'text-red-400' : 'text-ink'}`}>342 commits</span>
             </div>
-            <div className="grid grid-cols-12 gap-1 w-full h-full opacity-60">
-              {Array.from({ length: 48 }).map((_, i) => {
+            <div className="grid grid-cols-12 gap-1.5 w-full h-full opacity-80 content-start">
+              {Array.from({ length: 84 }).map((_, i) => {
                 const seed = Math.sin(i + 1) * 10000;
                 const rand = seed - Math.floor(seed);
                 const color = rand > 0.7 
                   ? (hustleMode ? 'bg-red-500' : 'bg-green-500') 
                   : rand > 0.4 
-                    ? (hustleMode ? 'bg-red-400' : 'bg-green-300') 
+                    ? (hustleMode ? 'bg-red-400' : 'bg-green-400') 
                     : (hustleMode ? 'bg-white/10' : 'bg-hairline');
                 return (
                   <motion.div 
                     key={i} 
-                    initial={{ opacity: 0, scale: 0.3 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ 
-                      duration: 0.3, 
-                      delay: 0.6 + (i * 0.015), 
-                      ease: "easeOut" 
+                    initial={{ opacity: 0.3, scale: 0.8 }}
+                    animate={{ 
+                      opacity: [0.3, 1, 0.3], 
+                      scale: [0.9, 1.1, 0.9] 
                     }}
-                    whileHover={{ scale: 1.3, zIndex: 10, transition: { duration: 0.1, delay: 0 } }}
+                    transition={{ 
+                      duration: 2 + (rand * 2), 
+                      repeat: Infinity, 
+                      delay: (i % 12) * 0.05 + (i / 12) * 0.05, 
+                      ease: "easeInOut" 
+                    }}
+                    whileHover={{ scale: 1.5, zIndex: 10, opacity: 1, transition: { duration: 0.2 } }}
                     className={`w-full aspect-square rounded-sm ${color} cursor-crosshair`} 
                   />
                 );
