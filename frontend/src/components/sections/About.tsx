@@ -188,14 +188,15 @@ export const About = ({ data }: { data?: any }) => {
             </a>
           </BentoCard>
 
-          {/* 5. CEO & Founder Card (Replaced Age Ticker) */}
-          <BentoCard delay={0.5} className={`md:col-span-1 md:row-span-1 flex flex-col justify-center items-center text-center ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
-          <a href="https://infotechevolvix.com" target="_blank" rel="noopener noreferrer">
-            <img src="/logo%20company.png" alt="Evolvix Infotech" className="h-15 w-auto object-contain mb-2" onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling?.classList.remove('hidden'); }} />
+          {/* 5. CEO & Founder Card */}
+          <BentoCard delay={0.5} className={`md:col-span-1 md:row-span-1 p-0! overflow-hidden ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
+            <a href="https://infotechevolvix.com" target="_blank" rel="noopener noreferrer" className="w-full h-full p-6 flex flex-col justify-center items-center text-center transition-colors hover:bg-black/5 relative group">
+              <ArrowUpRight className={`absolute top-4 right-4 w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity ${hustleMode ? 'text-white/50' : 'text-ink/30'}`} />
+              <img src="/logo%20company.png" alt="Evolvix Infotech" className="h-12 w-auto object-contain mb-2" onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling?.classList.remove('hidden'); }} />
+              <Briefcase className={`w-8 h-8 mb-2 hidden ${hustleMode ? 'text-red-400' : 'text-accent'}`} />
+              <div className={`font-bold text-sm ${hustleMode ? 'text-white' : 'text-ink'}`}>CEO & Founder</div>
+              <div className={`text-[10px] uppercase tracking-widest font-bold mt-1 ${hustleMode ? 'text-white/50' : 'text-accent'}`}>Evolvix Infotech</div>
             </a>
-            <Briefcase className={`w-8 h-8 mb-2 hidden ${hustleMode ? 'text-red-400' : 'text-accent'}`} />
-            <div className={`font-bold text-sm ${hustleMode ? 'text-white' : 'text-ink'}`}>CEO & Founder</div>
-            <div className={`text-[10px] uppercase tracking-widest font-bold mt-1 ${hustleMode ? 'text-white/50' : 'text-accent'}`}>Evolvix Infotech</div>
           </BentoCard>
 
           {/* 6. GitHub Contribution Graph */}
