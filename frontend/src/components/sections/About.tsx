@@ -307,15 +307,15 @@ export const About = ({ data }: { data?: any }) => {
           <BentoCard delay={0.7} className={`md:col-span-3 lg:col-span-4 md:row-span-1 flex flex-col sm:flex-row justify-between items-center gap-6 cursor-pointer transition-colors ${hustleMode ? 'bg-[#111] border-white/10 hover:bg-white/5' : 'bg-white hover:bg-hairline/50'}`} onClick={fireConfetti}>
             <div className="flex gap-8 md:gap-16 w-full justify-around sm:justify-start">
               <div className="flex flex-col gap-1 items-center sm:items-start pointer-events-none">
-                <div className="flex items-baseline gap-1"><CountUp end={10} className="text-3xl font-black font-display" /><span className={hustleMode ? 'text-red-500' : 'text-accent font-bold'}>+</span></div>
-                <span className="text-[10px] uppercase tracking-widest text-muted font-semibold">Global Clients</span>
+                <div className="flex items-baseline gap-1"><CountUp end={5} className="text-3xl font-black font-display" /><span className={hustleMode ? 'text-red-500' : 'text-accent font-bold'}>+</span></div>
+                <span className="text-[10px] uppercase tracking-widest text-muted font-semibold">Clients</span>
               </div>
               <div className="flex flex-col gap-1 items-center sm:items-start pointer-events-none">
                 <div className="flex items-baseline gap-1"><CountUp end={25} className="text-3xl font-black font-display" /><span className={hustleMode ? 'text-red-500' : 'text-accent font-bold'}>+</span></div>
                 <span className="text-[10px] uppercase tracking-widest text-muted font-semibold">Projects Built</span>
               </div>
               <div className="flex flex-col gap-1 items-center sm:items-start pointer-events-none">
-                <div className="flex items-baseline gap-1"><CountUp end={4} className="text-3xl font-black font-display" /><span className={hustleMode ? 'text-red-500' : 'text-accent font-bold'}>+</span></div>
+                <div className="flex items-baseline gap-1"><CountUp end={2} className="text-3xl font-black font-display" /><span className={hustleMode ? 'text-red-500' : 'text-accent font-bold'}>+</span></div>
                 <span className="text-[10px] uppercase tracking-widest text-muted font-semibold">Years Exp</span>
               </div>
             </div>
