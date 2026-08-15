@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform, useScroll, AnimatePresence } from "framer-motion";
-import { Code, Type, Download, MapPin, Music, Check, Copy, Volume2, Globe, Terminal, Briefcase, Coffee, Keyboard } from "lucide-react";
+import { Code, Type, Download, MapPin, Music, Check, Copy, Volume2, Globe, Terminal, Briefcase, Coffee, Keyboard, Calendar, Building2, ArrowUpRight, CupSoda, FileText } from "lucide-react";
 import confetti from "canvas-confetti";
 import { Container } from "../ui/Container";
 import { SectionHeading } from "../ui/SectionHeading";
@@ -27,6 +27,7 @@ export const About = ({ data }: { data?: any }) => {
   const [copied, setCopied] = useState(false);
   const [age, setAge] = useState<string>("21.00000000");
   const [matrixMode, setMatrixMode] = useState(false);
+  const [startupMode, setStartupMode] = useState(false);
   const [playingAudio, setPlayingAudio] = useState(false);
   const localTime = useLocalTime();
 
@@ -92,18 +93,27 @@ export const About = ({ data }: { data?: any }) => {
   const restOfP1 = bioP1.slice(1);
 
   return (
-    <section id="about" className={`py-32 relative text-selection-accent transition-colors duration-1000 ${matrixMode ? 'bg-black text-green-500 font-mono' : 'bg-white text-ink'}`}>
+    <section id="about" className={`py-32 relative text-selection-accent transition-colors duration-1000 ${matrixMode ? 'bg-black text-green-500 font-mono' : startupMode ? 'bg-[#0B101E] text-amber-500 font-sans' : 'bg-white text-ink'}`}>
       <Container>
         <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
           <SectionHeading heading="About me" className="mb-0" />
           
-          {/* Secret Matrix Toggle */}
-          <button 
-            onClick={() => setMatrixMode(!matrixMode)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono transition-colors ${matrixMode ? 'bg-green-500/20 text-green-400 border border-green-500/50' : 'bg-surface text-muted hover:text-ink'}`}
-          >
-            <Terminal size={14} /> {matrixMode ? "System: Compromised" : "System: Secure"}
-          </button>
+          <div className="flex gap-3">
+            {/* Startup Mode Toggle */}
+            <button 
+              onClick={() => { setStartupMode(!startupMode); setMatrixMode(false); }}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-colors ${startupMode ? 'bg-amber-500/20 text-amber-400 border border-amber-500/50' : 'bg-surface text-muted hover:text-ink'}`}
+            >
+              <Briefcase size={14} /> {startupMode ? "Enterprise: Active" : "Startup Mode"}
+            </button>
+            {/* Secret Matrix Toggle */}
+            <button 
+              onClick={() => { setMatrixMode(!matrixMode); setStartupMode(false); }}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono transition-colors ${matrixMode ? 'bg-green-500/20 text-green-400 border border-green-500/50' : 'bg-surface text-muted hover:text-ink'}`}
+            >
+              <Terminal size={14} /> {matrixMode ? "System: Compromised" : "System: Secure"}
+            </button>
+          </div>
         </div>
 
         {/* 20-FEATURE BENTO GRID */}
@@ -287,6 +297,110 @@ export const About = ({ data }: { data?: any }) => {
                 <span>React</span> • <span>Next.js</span> • <span>Node.js</span> • <span>MongoDB</span> • <span>Framer Motion</span> • <span>Tailwind</span> • <span>TypeScript</span> • 
                 <span>React</span> • <span>Next.js</span> • <span>Node.js</span> • <span>MongoDB</span> • <span>Framer Motion</span> • <span>Tailwind</span> • <span>TypeScript</span>
               </motion.div>
+            </div>
+          </BentoCard>
+
+          {/* 10. Evolvix Spotlight (Col Span 2, Row Span 1) */}
+          <BentoCard delay={1.1} className="md:col-span-2 md:row-span-1 bg-ink text-white group cursor-pointer overflow-hidden border-0!">
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 to-black opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="relative z-10 flex flex-col justify-between h-full">
+              <div className="flex justify-between items-start">
+                <div className="bg-white/10 p-2 rounded-lg"><Building2 size={24} className="text-white" /></div>
+                <div className="flex items-center gap-2 bg-green-500/20 px-3 py-1 rounded-full border border-green-500/30">
+                  <span className="relative flex h-1.5 w-1.5"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span></span>
+                  <span className="text-[10px] text-green-400 font-medium tracking-widest uppercase">Systems Operational</span>
+                </div>
+              </div>
+              <div>
+                <h4 className="text-lg font-bold font-display tracking-wide group-hover:text-amber-400 transition-colors">EVOLVIX INFOTECH</h4>
+                <p className="text-xs text-white/60 font-medium">Founder & CEO</p>
+              </div>
+              <ArrowUpRight className="absolute bottom-6 right-6 text-white/30 group-hover:text-white transition-colors" />
+            </div>
+          </BentoCard>
+
+          {/* 11. Book a Meeting (Col Span 1, Row Span 1) */}
+          <BentoCard delay={1.2} className="md:col-span-1 md:row-span-1 flex flex-col justify-center items-center text-center cursor-pointer hover:bg-accent hover:text-white transition-colors group border-accent/20">
+            <Calendar className="mb-3 text-accent group-hover:text-white transition-colors" size={28} />
+            <h4 className="font-bold text-sm">Book a Call</h4>
+            <p className="text-[10px] text-muted group-hover:text-white/70 mt-1 uppercase tracking-widest">Discovery Meeting</p>
+          </BentoCard>
+
+          {/* 12. Dynamic Coffee Tracker (Col Span 1, Row Span 1) */}
+          <BentoCard delay={1.3} className="md:col-span-1 md:row-span-1 flex flex-col justify-between relative overflow-hidden group">
+            <span className="text-xs font-medium uppercase tracking-widest text-muted z-10">Founder Fuel</span>
+            <div className="text-4xl font-display font-black z-10 text-amber-700 mt-2">4</div>
+            <div className="text-[10px] text-muted z-10 uppercase tracking-widest font-semibold mt-1">Cups Today</div>
+            <div className="absolute bottom-0 left-0 w-full h-[60%] bg-amber-100 group-hover:h-[80%] transition-all duration-1000 ease-in-out -z-0" />
+            <CupSoda className="absolute -bottom-4 -right-4 text-amber-200/50 w-24 h-24 -z-0 group-hover:rotate-12 transition-transform" />
+          </BentoCard>
+
+          {/* 13. 3D Business Card (Col Span 2, Row Span 2) */}
+          <BentoCard delay={1.4} className="md:col-span-2 md:row-span-2 p-0! bg-transparent border-0!" style={{ perspective: "1000px" }}>
+            <div className="w-full h-full relative group transition-transform duration-700" style={{ transformStyle: "preserve-3d" }}>
+              <style dangerouslySetInnerHTML={{__html: `
+                .backface-hidden { backface-visibility: hidden; }
+                .rotate-y-180 { transform: rotateY(180deg); }
+                .group:hover { transform: rotateY(180deg); }
+              `}} />
+              {/* Front */}
+              <div className="absolute inset-0 backface-hidden bg-ink text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between border border-hairline/20 shadow-xl">
+                <div className="flex justify-between items-start">
+                  <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center font-display font-bold text-xl">N</div>
+                  <div className="text-right">
+                    <h3 className="font-display font-bold text-lg">Niraj Kushwaha</h3>
+                    <p className="text-xs text-white/50 uppercase tracking-widest mt-1">Entrepreneur</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-2/3 h-1 bg-gradient-to-r from-accent to-purple-500 rounded-full" />
+                </div>
+              </div>
+              {/* Back */}
+              <div className="absolute inset-0 backface-hidden rotate-y-180 bg-surface text-ink rounded-3xl p-6 sm:p-8 flex flex-col justify-between items-center text-center border border-hairline shadow-xl">
+                <h3 className="font-bold text-sm tracking-widest uppercase text-accent">Evolvix Infotech</h3>
+                <div className="w-24 h-24 bg-white border border-hairline rounded-xl p-2 shadow-sm flex items-center justify-center">
+                  <div className="grid grid-cols-5 grid-rows-5 gap-0.5 w-full h-full opacity-80">
+                    {Array.from({length: 25}).map((_, i) => (
+                      <div key={i} className={`${(i%2===0 || i%3===0) ? 'bg-ink' : 'bg-transparent'}`} />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-xs text-muted font-medium">Scan to Connect</p>
+              </div>
+            </div>
+          </BentoCard>
+
+          {/* 14. Global Client Map (Col Span 2, Row Span 2) */}
+          <BentoCard delay={1.5} className="md:col-span-2 md:row-span-2 bg-slate-900 text-white relative overflow-hidden flex flex-col items-center justify-center">
+            <span className="absolute top-6 left-6 text-xs font-medium uppercase tracking-widest text-white/50">Global Reach</span>
+            <Globe className="absolute text-slate-800 w-[150%] h-[150%] -z-0 opacity-50" strokeWidth={0.5} />
+            <div className="z-10 text-center">
+              <div className="text-5xl font-black font-display text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-500">12+</div>
+              <div className="text-xs text-slate-400 font-semibold tracking-widest uppercase mt-2">Countries Served</div>
+            </div>
+          </BentoCard>
+
+          {/* 15. Pitch Deck Download (Col Span 1, Row Span 1) */}
+          <BentoCard delay={1.6} className="md:col-span-1 md:row-span-1 flex flex-col justify-center items-center group cursor-pointer hover:bg-ink hover:text-white transition-colors">
+            <FileText className="mb-2 text-ink group-hover:text-white transition-colors" size={24} />
+            <span className="text-xs font-bold uppercase tracking-widest">Pitch Deck</span>
+          </BentoCard>
+
+          {/* 16. Evolvix Timeline (Col Span 1, Row Span 1) */}
+          <BentoCard delay={1.7} className="md:col-span-1 md:row-span-1 p-0! overflow-hidden relative">
+            <style dangerouslySetInnerHTML={{__html: `
+              @keyframes scrollUp { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+              .animate-scrollUp { animation: scrollUp 10s linear infinite; }
+            `}} />
+            <div className="absolute inset-x-0 top-0 flex flex-col animate-scrollUp p-6 text-sm font-medium gap-4">
+              <div className="flex gap-4 items-center"><div className="w-2 h-2 rounded-full bg-accent flex-shrink-0" /><span className="text-ink truncate">Founded Evolvix</span></div>
+              <div className="flex gap-4 items-center"><div className="w-2 h-2 rounded-full bg-hairline flex-shrink-0" /><span className="text-muted truncate">First Int. Client</span></div>
+              <div className="flex gap-4 items-center"><div className="w-2 h-2 rounded-full bg-hairline flex-shrink-0" /><span className="text-muted truncate">Team Expansion</span></div>
+              {/* Duplicate for infinite effect */}
+              <div className="flex gap-4 items-center"><div className="w-2 h-2 rounded-full bg-accent flex-shrink-0" /><span className="text-ink truncate">Founded Evolvix</span></div>
+              <div className="flex gap-4 items-center"><div className="w-2 h-2 rounded-full bg-hairline flex-shrink-0" /><span className="text-muted truncate">First Int. Client</span></div>
+              <div className="flex gap-4 items-center"><div className="w-2 h-2 rounded-full bg-hairline flex-shrink-0" /><span className="text-muted truncate">Team Expansion</span></div>
             </div>
           </BentoCard>
 
