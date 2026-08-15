@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform, useScroll, AnimatePresence } from "framer-motion";
-import { Code, Type, Download, MapPin, Music, Check, Copy, Volume2, Globe, Terminal, Briefcase, Coffee, Keyboard, TrendingUp, Users, Calendar, ArrowUpRight, Zap, BookOpen } from "lucide-react";
+import { Code, Type, Download, MapPin, Music, Check, Copy, Volume2, Globe, Terminal, Briefcase, Coffee, Keyboard, TrendingUp, Users, Calendar, ArrowUpRight, Zap, BookOpen, Github, Linkedin, Facebook, Instagram, Mail } from "lucide-react";
 import confetti from "canvas-confetti";
 import { Container } from "../ui/Container";
 import { SectionHeading } from "../ui/SectionHeading";
@@ -237,6 +237,42 @@ export const About = ({ data }: { data?: any }) => {
                 );
               })}
             </div>
+          </BentoCard>
+
+          {/* 6.5 Social Links Card (Fills the gap in Row 4) */}
+          <BentoCard delay={0.65} className={`md:col-span-2 md:row-span-1 flex flex-col justify-center items-center overflow-hidden ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
+            <span className="text-xs font-medium uppercase tracking-widest text-muted absolute top-4 left-4 z-10">Connect</span>
+            <div className="flex items-center justify-around w-full mt-4 z-10">
+              {[
+                { icon: Github, href: "https://github.com/Niraj3004", color: hustleMode ? "hover:text-white" : "hover:text-black", name: "GitHub" },
+                { icon: Linkedin, href: "https://linkedin.com/", color: "hover:text-blue-500", name: "LinkedIn" },
+                { icon: Facebook, href: "https://facebook.com/", color: "hover:text-blue-600", name: "Facebook" },
+                { icon: Instagram, href: "https://instagram.com/", color: "hover:text-pink-500", name: "Instagram" },
+                { icon: Mail, href: "mailto:niraj@infotechevolvix.com", color: "hover:text-red-500", name: "Email" }
+              ].map((social, i) => (
+                <motion.a 
+                  key={i} 
+                  href={social.href} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  title={social.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.8 + (i * 0.1), type: "spring", stiffness: 200, damping: 15 }}
+                  whileHover={{ y: -5, scale: 1.15 }}
+                  className={`text-muted transition-colors ${social.color}`}
+                >
+                  <social.icon size={28} strokeWidth={1.5} />
+                </motion.a>
+              ))}
+            </div>
+            {/* Background animated circles */}
+            <motion.div 
+              animate={{ rotate: 360 }} 
+              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+              className={`absolute -bottom-1/2 -right-1/4 w-full aspect-square rounded-full opacity-10 pointer-events-none blur-3xl ${hustleMode ? 'bg-red-500' : 'bg-blue-500'}`} 
+            />
           </BentoCard>
 
           {/* 7. Stats & CV Download */}
