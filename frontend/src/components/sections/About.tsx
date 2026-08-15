@@ -223,9 +223,13 @@ export const About = ({ data }: { data?: any }) => {
               <span className="text-xs font-medium text-ink">342 commits</span>
             </div>
             <div className="grid grid-cols-12 gap-1 w-full h-full opacity-60">
-              {Array.from({ length: 48 }).map((_, i) => (
-                <div key={i} className={`w-full aspect-square rounded-sm ${Math.random() > 0.7 ? 'bg-green-500' : Math.random() > 0.4 ? 'bg-green-300' : 'bg-hairline'}`} />
-              ))}
+              {Array.from({ length: 48 }).map((_, i) => {
+                // Deterministic pseudo-randomness to avoid hydration mismatch
+                const seed = Math.sin(i + 1) * 10000;
+                const rand = seed - Math.floor(seed);
+                const color = rand > 0.7 ? 'bg-green-500' : rand > 0.4 ? 'bg-green-300' : 'bg-hairline';
+                return <div key={i} className={`w-full aspect-square rounded-sm ${color}`} />;
+              })}
             </div>
           </BentoCard>
 
