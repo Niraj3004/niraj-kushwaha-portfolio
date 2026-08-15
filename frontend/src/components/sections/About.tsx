@@ -94,8 +94,8 @@ export const About = ({ data }: { data?: any }) => {
   return (
     <section id="about" className={`py-32 relative text-selection-accent transition-colors duration-1000 ${hustleMode ? 'bg-ink text-white font-sans' : 'bg-surface text-ink'}`}>
       <Container>
-        <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
-          <SectionHeading heading="About Me" className="mb-0" />
+        <div className="flex flex-col items-center justify-center mb-16 gap-6 text-center">
+          <SectionHeading heading="About Me" className="mb-0 mx-auto" />
           
           {/* Secret Hustle Mode Toggle */}
           <button 
@@ -107,10 +107,10 @@ export const About = ({ data }: { data?: any }) => {
         </div>
 
         {/* 20-FEATURE HYBRID BENTO GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[120px] md:auto-rows-[150px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[150px] md:auto-rows-[150px]">
 
           {/* 1. Main Photo Card / Dual Image Crossfade (Col Span 1, Row Span 3) */}
-          <BentoCard delay={0.1} className={`md:col-span-1 md:row-span-3 p-0! group cinematic-grain relative ${hustleMode ? 'border-red-500/30' : ''}`} style={{ perspective: "1000px" }}>
+          <BentoCard delay={0.1} className={`row-span-2 md:col-span-1 md:row-span-3 p-0! group cinematic-grain relative ${hustleMode ? 'border-red-500/30' : ''}`} style={{ perspective: "1000px" }}>
             <motion.div
               style={{ rotateX: shouldReduceMotion ? 0 : rotateX, rotateY: shouldReduceMotion ? 0 : rotateY, transformStyle: "preserve-3d" }}
               onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}
@@ -125,7 +125,7 @@ export const About = ({ data }: { data?: any }) => {
               {/* Image Crossfade (Personal to Company Logo) */}
               <img src="/niraj2.jpeg" alt="Niraj" onError={(e) => e.currentTarget.src = data?.photo || '/placeholder.jpg'} className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 brightness-110" />
               <div className="absolute inset-0 w-full h-full bg-white flex flex-col items-center justify-center opacity-0 transition-all duration-700 ease-in-out group-hover:opacity-100 group-hover:scale-105 p-6 text-center border border-hairline">
-                <img src="/evolvix-logo.png" alt="Evolvix Infotech Logo" onError={(e) => e.currentTarget.style.display = 'none'} className="w-40 h-auto mb-4" />
+                <img src="/logo%20company.png" alt="Evolvix Infotech Logo" onError={(e) => e.currentTarget.style.display = 'none'} className="w-40 h-auto mb-4" />
                 <h3 className="text-ink font-display font-bold text-xl">Evolvix Infotech</h3>
                 <p className="text-ink/60 text-xs mt-2 uppercase tracking-widest font-semibold">Founder & CEO</p>
               </div>
@@ -191,7 +191,7 @@ export const About = ({ data }: { data?: any }) => {
           </BentoCard>
 
           {/* 4. Education / Studies Card */}
-          <BentoCard delay={0.4} className={`md:col-span-1 md:row-span-1 flex flex-col justify-center items-center gap-2 ${hustleMode ? 'bg-[#111] text-white border-white/10' : 'bg-ink text-white border-ink'}`}>
+          <BentoCard delay={0.4} className={`md:col-span-1 md:row-span-1 flex flex-col justify-center items-center gap-2 ${hustleMode ? 'bg-[#111] text-white border-white/10' : 'bg-black text-white border-black'}`}>
             <BookOpen className="w-8 h-8 opacity-80" />
             <div className="text-center">
               <div className="font-bold text-sm">BSc Computing</div>
@@ -199,11 +199,11 @@ export const About = ({ data }: { data?: any }) => {
             </div>
           </BentoCard>
 
-          {/* 5. Age Ticker Card */}
+          {/* 5. CEO & Founder Card (Replaced Age Ticker) */}
           <BentoCard delay={0.5} className={`md:col-span-1 md:row-span-1 flex flex-col justify-center items-center text-center ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
-            <span className="text-xs font-medium uppercase tracking-widest text-muted absolute top-4 left-4">Age</span>
-            <div className={`text-2xl font-mono font-bold ${hustleMode ? 'text-red-400' : 'text-accent'}`}>{age}</div>
-            <div className={`text-xs font-medium mt-1 ${hustleMode ? 'text-white/50' : 'text-ink/50'}`}>Years Old</div>
+            <Briefcase className={`w-8 h-8 mb-2 ${hustleMode ? 'text-red-400' : 'text-accent'}`} />
+            <div className={`font-bold text-sm ${hustleMode ? 'text-white' : 'text-ink'}`}>CEO & Founder</div>
+            <div className={`text-[10px] uppercase tracking-widest font-bold mt-1 ${hustleMode ? 'text-white/50' : 'text-accent'}`}>Evolvix Infotech</div>
           </BentoCard>
 
           {/* 6. GitHub Contribution Graph */}
