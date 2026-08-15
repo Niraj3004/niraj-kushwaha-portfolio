@@ -2,8 +2,14 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useReducedMotion, useMotionValue, useSpring, useTransform, useScroll, AnimatePresence } from "framer-motion";
-import { Code, Type, Download, MapPin, Music, Check, Copy, Volume2, Globe, Terminal, Briefcase, Coffee, Keyboard, TrendingUp, Users, Calendar, ArrowUpRight, Zap, BookOpen, Github, Linkedin, Facebook, Instagram, Mail } from "lucide-react";
+import { Code, Type, Download, MapPin, Music, Check, Copy, Volume2, Globe, Terminal, Briefcase, Coffee, Keyboard, TrendingUp, Users, Calendar, ArrowUpRight, Zap, BookOpen, Github, Linkedin, Instagram, Mail } from "lucide-react";
 import confetti from "canvas-confetti";
+
+const Facebook = (props: any) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={props.size || 24} height={props.size || 24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth || 2} strokeLinecap="round" strokeLinejoin="round" className={props.className}>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+  </svg>
+);
 import { Container } from "../ui/Container";
 import { SectionHeading } from "../ui/SectionHeading";
 import { Reveal } from "../motion/Reveal";
