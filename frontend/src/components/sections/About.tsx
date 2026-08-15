@@ -86,8 +86,8 @@ export const About = ({ data }: { data?: any }) => {
     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#4F46E5', '#10B981', '#F59E0B', '#F43F5E'] });
   };
 
-  const bioP1 = data?.bioParagraph1 || "I'm Niraj — a passionate Full-Stack Developer specializing in Node.js backend, AI enthusiast, and the Founder of Evolvix Infotech.";
-  const bioP2 = data?.bioParagraph2 || "I specialize in building highly scalable applications using the MERN stack and React Native. Currently, I am pursuing my BSc in Computing at Islington College, all while scaling operations at my company and diving deep into the fascinating world of Machine Learning.";
+  const bioP1 = data?.bioParagraph1 || "I'm Niraj — a Full-Stack Developer (Node.js Backend focus), AI enthusiast, and Founder of Evolvix Infotech.";
+  const bioP2 = data?.bioParagraph2 || "I build scalable apps with MERN & React Native. Currently studying at Islington College while scaling Evolvix and diving into Machine Learning.";
   const firstLetter = bioP1.charAt(0);
   const restOfP1 = bioP1.slice(1);
 
