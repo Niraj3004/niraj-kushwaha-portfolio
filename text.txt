@@ -1,0 +1,14 @@
+Viewed page.tsx:1-41
+
+Your homepage currently consists of **8 main sections**, displayed in this order:
+
+1. **Hero** (`<Hero />`): The massive typography section at the very top.
+2. **About** (`<About />`): Your bio, profile picture, and quick stats.
+3. **What I Do** (`<WhatIDo />`): The services you offer (Web Apps, Mobile Apps, AI & Automation).
+4. **Skills & Tech Stack** (`<Skills />`): The scrolling marquees and categorized grid of your technical skills.
+5. **Featured Projects** (`<FeaturedProjects />`): A dynamic list showing your top projects.
+6. **Testimonials** (`<Testimonials />`): Feedback or recommendations from clients/colleagues.
+7. **Experience / Timeline** (`<Timeline />`): A vertical timeline of your education and career journey.
+8. **Contact** (`<Contact />`): The form at the bottom for visitors to send you a message. 
+
+*(Note: The `Hero`, `About`, `WhatIDo`, `Skills`, and `Timeline` sections are managed by the single Homepage configuration in your Admin Dashboard. The `FeaturedProjects` and `Testimonials` are managed in their own separate tabs in the Admin Dashboard!)*
