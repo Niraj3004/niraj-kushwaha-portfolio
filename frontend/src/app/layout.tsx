@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { CustomCursor } from "@/components/motion/CustomCursor";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -314,6 +315,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-sans selection:bg-accent selection:text-white">
+        <CustomCursor />
         <Navbar />
         <main className="flex-1 flex flex-col pt-[88px]">{children}</main>
         <Footer />

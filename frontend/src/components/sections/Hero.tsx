@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Code, Terminal, Database, Layers } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { ArrowUpRight, Code, Terminal, Database, Layers, Copy, Check } from "lucide-react";
 import { Container } from "../ui/Container";
 import { Reveal } from "../motion/Reveal";
 import { MagneticButton } from "../motion/MagneticButton";
@@ -13,22 +14,64 @@ export const Hero = ({ data }: { data?: any }) => {
   const y2 = useTransform(scrollY, [0, 1000], [0, -100]);
   const scale = useTransform(scrollY, [0, 1000], [1, 1.1]);
 
+  const [copied, setCopied] = useState(false);
+
+  // Mouse tracking for magnetic background elements
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth springs for the magnetic pull
+  const smoothMouseX = useSpring(mouseX, { damping: 50, stiffness: 400 });
+  const smoothMouseY = useSpring(mouseY, { damping: 50, stiffness: 400 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // Normalize mouse coordinates from -1 to 1 based on screen center
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+      const y = (e.clientY / window.innerHeight) * 2 - 1;
+      mouseX.set(x);
+      mouseY.set(y);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
   // Fallbacks
   const headline = data?.headline || "NIRAJ KUSHWAHA";
   const subheadline = data?.subheadline || "FULL STACK DEVELOPER";
   const desc = data?.description || "based in Kathmandu, Nepal.";
 
-  // Floating animation variants
-  const floatingVariants = {
-    animate: (custom: number) => ({
-      y: [0, -20, 0],
-      rotate: [0, 10, -10, 0],
-      transition: {
-        duration: custom,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    })
+  // Synthetic Hover Sound (Pop/Click)
+  const playHoverSound = () => {
+    try {
+      const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContext) return;
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(800, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.1);
+      gain.gain.setValueAtTime(0.05, ctx.currentTime); // Keep it very subtle
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.1);
+    } catch (e) {}
+  };
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText("admin@niraj.com"); // Replace with actual email later if needed
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Helper to calculate translation for magnetic icons
+  const useMagneticTranslate = (factorX: number, factorY: number) => {
+    const x = useTransform(smoothMouseX, [-1, 1], [-factorX, factorX]);
+    const y = useTransform(smoothMouseY, [-1, 1], [-factorY, factorY]);
+    return { x, y };
   };
 
   return (
@@ -36,19 +79,39 @@ export const Hero = ({ data }: { data?: any }) => {
       {/* Subtle Premium Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, black 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
-      {/* Floating Background Icons */}
+      {/* Magnetic Floating Background Icons */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-        <motion.div custom={6} variants={floatingVariants} animate="animate" className="absolute top-[20%] left-[15%] text-ink/10">
-          <Code size={48} strokeWidth={1.5} />
+        <motion.div 
+          style={useMagneticTranslate(40, 40)}
+          className="absolute top-[20%] left-[15%] text-ink/10"
+        >
+          <motion.div animate={{ y: [0, -15, 0], rotate: [0, 10, -10, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
+            <Code size={48} strokeWidth={1.5} />
+          </motion.div>
         </motion.div>
-        <motion.div custom={8} variants={floatingVariants} animate="animate" className="absolute top-[60%] right-[20%] text-ink/10">
-          <Terminal size={40} strokeWidth={1.5} />
+        <motion.div 
+          style={useMagneticTranslate(-30, 50)}
+          className="absolute top-[60%] right-[20%] text-ink/10"
+        >
+          <motion.div animate={{ y: [0, -20, 0], rotate: [0, -5, 5, 0] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}>
+            <Terminal size={40} strokeWidth={1.5} />
+          </motion.div>
         </motion.div>
-        <motion.div custom={7} variants={floatingVariants} animate="animate" className="absolute bottom-[20%] left-[25%] text-ink/10">
-          <Database size={56} strokeWidth={1.5} />
+        <motion.div 
+          style={useMagneticTranslate(50, -30)}
+          className="absolute bottom-[20%] left-[25%] text-ink/10"
+        >
+          <motion.div animate={{ y: [0, -10, 0], rotate: [0, 8, -8, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>
+            <Database size={56} strokeWidth={1.5} />
+          </motion.div>
         </motion.div>
-        <motion.div custom={9} variants={floatingVariants} animate="animate" className="absolute top-[30%] right-[10%] text-ink/10">
-          <Layers size={32} strokeWidth={1.5} />
+        <motion.div 
+          style={useMagneticTranslate(-60, -40)}
+          className="absolute top-[30%] right-[10%] text-ink/10"
+        >
+          <motion.div animate={{ y: [0, -25, 0], rotate: [0, 15, -15, 0] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}>
+            <Layers size={32} strokeWidth={1.5} />
+          </motion.div>
         </motion.div>
       </div>
 
@@ -103,14 +166,26 @@ export const Hero = ({ data }: { data?: any }) => {
           </Reveal>
 
           <Reveal delay={0.6}>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center md:justify-end gap-4">
+              
+              {/* Quick Copy Email Button */}
+              <button 
+                onClick={copyEmail}
+                onMouseEnter={playHoverSound}
+                className="group relative h-14 px-6 flex items-center gap-2 rounded-full border border-ink/10 bg-white/50 backdrop-blur-md hover:bg-ink/5 transition-colors cursor-pointer"
+              >
+                {copied ? <Check size={18} className="text-emerald-500" /> : <Copy size={18} className="text-ink/60 group-hover:text-ink transition-colors" />}
+                <span className="text-sm font-medium text-ink/80">{copied ? "Copied!" : "Email"}</span>
+              </button>
+
               {/* Radar Pulse on CTA */}
-              <div className="animate-radar-pulse rounded-full">
+              <div className="animate-radar-pulse rounded-full" onMouseEnter={playHoverSound}>
                 <MagneticButton strength={0.3} className="h-14 px-8 text-body font-semibold flex items-center gap-2 bg-ink text-white hover:bg-ink/90 rounded-full relative z-10">
                   Visit site
                   <ArrowUpRight size={20} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </MagneticButton>
               </div>
+              
             </div>
           </Reveal>
         </div>
