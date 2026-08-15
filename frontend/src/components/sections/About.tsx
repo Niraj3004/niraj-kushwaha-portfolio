@@ -125,7 +125,7 @@ export const About = ({ data }: { data?: any }) => {
               {/* Image Crossfade (Personal to Company Logo) */}
               <img src="/niraj2.jpeg" alt="Niraj" onError={(e) => e.currentTarget.src = data?.photo || '/placeholder.jpg'} className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 brightness-110" />
               <div className="absolute inset-0 w-full h-full bg-white flex flex-col items-center justify-center opacity-0 transition-all duration-700 ease-in-out group-hover:opacity-100 group-hover:scale-105 p-6 text-center border border-hairline">
-                <img src="/logo%20company.png" alt="Evolvix Infotech Logo" onError={(e) => e.currentTarget.style.display = 'none'} className="w-40 h-auto mb-4" />
+                <img src="/logo%20company.png" alt="Evolvix Infotech Logo" onError={(e) => e.currentTarget.style.display = 'none'} className="w-24 h-auto mb-4" />
                 <h3 className="text-ink font-display font-bold text-xl">Evolvix Infotech</h3>
                 <p className="text-ink/60 text-xs mt-2 uppercase tracking-widest font-semibold">Founder & CEO</p>
               </div>
@@ -191,12 +191,14 @@ export const About = ({ data }: { data?: any }) => {
           </BentoCard>
 
           {/* 4. Education / Studies Card */}
-          <BentoCard delay={0.4} className={`md:col-span-1 md:row-span-1 flex flex-col justify-center items-center gap-2 ${hustleMode ? 'bg-[#111] text-white border-white/10' : 'bg-black text-white border-black'}`}>
-            <BookOpen className="w-8 h-8 opacity-80" />
-            <div className="text-center">
-              <div className="font-bold text-sm">BSc Computing</div>
-              <div className="text-[10px] uppercase tracking-widest text-white/50 mt-1">Islington College</div>
-            </div>
+          <BentoCard delay={0.4} className={`md:col-span-1 md:row-span-1 p-0! overflow-hidden ${hustleMode ? 'bg-[#111] border-white/10' : 'bg-white'}`}>
+            <a href="https://islington.edu.np/" target="_blank" rel="noopener noreferrer" className="w-full h-full p-6 flex flex-col justify-center items-center gap-3 transition-colors hover:bg-black/5">
+              <img src="/college%20logo.png" alt="Islington College" className="w-12 h-auto object-contain" onError={(e) => e.currentTarget.style.display = 'none'} />
+              <div className="text-center">
+                <div className={`font-bold text-sm ${hustleMode ? 'text-white' : 'text-ink'}`}>BSc (Hons) in Computing</div>
+                <div className={`text-[10px] uppercase tracking-widest font-bold mt-1 ${hustleMode ? 'text-white/50' : 'text-accent'}`}>Islington College</div>
+              </div>
+            </a>
           </BentoCard>
 
           {/* 5. CEO & Founder Card (Replaced Age Ticker) */}
