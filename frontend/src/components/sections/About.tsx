@@ -216,7 +216,21 @@ export const About = ({ data }: { data?: any }) => {
                   : rand > 0.4 
                     ? (hustleMode ? 'bg-red-400' : 'bg-green-300') 
                     : (hustleMode ? 'bg-white/10' : 'bg-hairline');
-                return <div key={i} className={`w-full aspect-square rounded-sm ${color}`} />;
+                return (
+                  <motion.div 
+                    key={i} 
+                    initial={{ opacity: 0, scale: 0.3 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      duration: 0.3, 
+                      delay: 0.6 + (i * 0.015), 
+                      ease: "easeOut" 
+                    }}
+                    whileHover={{ scale: 1.3, zIndex: 10, transition: { duration: 0.1, delay: 0 } }}
+                    className={`w-full aspect-square rounded-sm ${color} cursor-crosshair`} 
+                  />
+                );
               })}
             </div>
           </BentoCard>
