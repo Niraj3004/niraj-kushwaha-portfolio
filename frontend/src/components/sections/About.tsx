@@ -86,7 +86,7 @@ export const About = ({ data }: { data?: any }) => {
     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#4F46E5', '#10B981', '#F59E0B', '#F43F5E'] });
   };
 
-  const bioP1 = data?.bioParagraph1 || "I'm Niraj — a passionate Full-Stack Developer, AI enthusiast, and the Founder of Evolvix Infotech.";
+  const bioP1 = data?.bioParagraph1 || "I'm Niraj — a passionate Full-Stack Developer specializing in Node.js backend, AI enthusiast, and the Founder of Evolvix Infotech.";
   const bioP2 = data?.bioParagraph2 || "I specialize in building highly scalable applications using the MERN stack and React Native. Currently, I am pursuing my BSc in Computing at Islington College, all while scaling operations at my company and diving deep into the fascinating world of Machine Learning.";
   const firstLetter = bioP1.charAt(0);
   const restOfP1 = bioP1.slice(1);
@@ -111,7 +111,7 @@ export const About = ({ data }: { data?: any }) => {
               {/* Status Indicator */}
               <div className="absolute top-4 left-4 z-30 bg-white/90 backdrop-blur-md text-ink text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
                 <span className="relative flex h-2 w-2"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span></span>
-                Building Agents
+                Full Stack Developer
               </div>
 
               {/* Static Personal Image */}
