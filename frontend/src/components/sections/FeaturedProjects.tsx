@@ -68,95 +68,33 @@ async function getFeaturedProjects() {
   }
 }
 
+import { ProjectCard } from "../ui/ProjectCard";
+
 export const FeaturedProjects = async () => {
   const projects = await getFeaturedProjects();
 
   return (
-    <section id="projects" className="py-32">
+    <section id="projects" className="py-32 relative">
       <Container>
         <SectionHeading 
           eyebrow="Selected Work"
           heading="Featured Projects"
         />
 
-        <div className="space-y-32 mt-16">
-          {projects.map((project: any, index: number) => {
-            const isEven = index % 2 === 0;
-            const imageUrl = project.images?.[0]?.url || "";
-
+        {/* Asymmetrical Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 mt-16">
+          {projects.slice(0, 3).map((project: any, index: number) => {
+            const isFeatured = index === 0; // First item is the hero featured item
             return (
               <div 
                 key={project._id}
-                className={`flex flex-col gap-12 lg:gap-16 items-center ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
+                className={isFeatured ? "col-span-1 md:col-span-2" : "col-span-1"}
               >
-                {/* Image Section */}
-                <div className="w-full lg:w-1/2">
-                  <Reveal>
-                    <Link href={`/projects/${project.slug}`} className="block group rounded-2xl overflow-hidden bg-surface aspect-[4/3] relative">
-                      {/* Image placeholder or actual image */}
-                      <div className="absolute inset-0 bg-hairline/50 transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                        {imageUrl ? (
-                          <img src={imageUrl} alt={project.title} className="w-full h-full object-cover" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-muted font-medium">
-                            [Project Image Placeholder]
-                          </div>
-                        )}
-                      </div>
-                      <div className="absolute inset-0 bg-ink/0 group-hover:bg-ink/5 transition-colors duration-500" />
-                    </Link>
-                  </Reveal>
-                </div>
-
-                {/* Content Section */}
-                <div className="w-full lg:w-1/2 space-y-6">
-                  <Reveal delay={0.2}>
-                    <h3 className="text-h2 font-display">
-                      <Link href={`/projects/${project.slug}`} className="hover:text-accent transition-colors">
-                        {project.title}
-                      </Link>
-                    </h3>
-                  </Reveal>
-                  
-                  <Reveal delay={0.3}>
-                    <p className="text-body text-muted leading-relaxed">
-                      {project.summary}
-                    </p>
-                  </Reveal>
-
-                  <Reveal delay={0.4}>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {project.techTags?.map((tag: string) => (
-                        <Badge key={tag} variant="outline" className="text-xs bg-transparent border-hairline hover:border-accent hover:text-accent transition-colors">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </Reveal>
-
-                  <Reveal delay={0.5}>
-                    <div className="flex items-center gap-6 pt-4">
-                      <Link href={`/projects/${project.slug}`} className="inline-flex items-center gap-2 text-small font-semibold hover:text-accent transition-colors group">
-                        Case Study
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                      
-                      {project.liveLink && (
-                        <a href={project.liveLink} target="_blank" rel="noreferrer" className="text-muted hover:text-ink transition-colors">
-                          <ExternalLink size={20} />
-                          <span className="sr-only">Live Site</span>
-                        </a>
-                      )}
-                      
-                      {project.githubLink && (
-                        <a href={project.githubLink} target="_blank" rel="noreferrer" className="text-muted hover:text-ink transition-colors">
-                          <Code size={20} />
-                          <span className="sr-only">Source Code</span>
-                        </a>
-                      )}
-                    </div>
-                  </Reveal>
-                </div>
+                <ProjectCard 
+                  project={project} 
+                  featured={isFeatured}
+                  delay={index}
+                />
               </div>
             );
           })}

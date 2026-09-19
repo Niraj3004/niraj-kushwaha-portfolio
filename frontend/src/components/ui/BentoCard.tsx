@@ -16,10 +16,10 @@ export const BentoCard = ({
 }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      viewport={{ once: false, amount: 0.1 }}
+      transition={{ duration: 0.7, delay: delay * 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={`relative rounded-3xl bg-surface border border-hairline overflow-hidden p-6 sm:p-8 flex flex-col ${className}`}
       onClick={onClick}
       style={style}

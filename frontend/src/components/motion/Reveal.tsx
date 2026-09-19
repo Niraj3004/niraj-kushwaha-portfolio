@@ -17,13 +17,14 @@ export const Reveal = ({ children, delay = 0, className, width = "fit-content" }
     <div style={{ width }} className={cn("relative overflow-hidden", className)}>
       <motion.div
         variants={{
-          hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+          hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 40 },
           visible: { opacity: 1, y: 0 },
         }}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
+        exit="hidden"
+        viewport={{ once: false, amount: 0.1 }}
+        transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
       >
         {children}
       </motion.div>

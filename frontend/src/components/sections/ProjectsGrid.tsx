@@ -23,10 +23,11 @@ interface ProjectsGridProps {
   projects: Project[];
 }
 
+import { ProjectCard } from "../ui/ProjectCard";
+
 export const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
   const [activeFilter, setActiveFilter] = useState("All");
 
-  // Extract unique tags from all projects
   const allTags = useMemo(() => {
     const tags = new Set<string>();
     projects.forEach((p) => p.techTags?.forEach((tag) => tags.add(tag)));
@@ -39,108 +40,59 @@ export const ProjectsGrid = ({ projects }: ProjectsGridProps) => {
   }, [projects, activeFilter]);
 
   return (
-    <Container className="py-32">
-      <SectionHeading 
-        eyebrow="My Work"
-        heading="All Projects"
-        subheading="A comprehensive list of things I've built, from small experiments to full-stack applications."
-      />
+    <section className="py-32 bg-surface relative" id="all-projects">
+      <Container>
+        <SectionHeading 
+          eyebrow="My Work"
+          heading="All Projects"
+          subheading="A comprehensive list of things I've built, from small experiments to full-stack applications."
+        />
 
-      {/* Filter */}
-      <div className="flex flex-wrap gap-2 mb-16">
-        {allTags.map((tag) => (
-          <button
-            key={tag}
-            onClick={() => setActiveFilter(tag)}
-            className={`px-4 py-2 rounded-full text-small font-medium transition-colors duration-300 ${
-              activeFilter === tag 
-                ? "bg-ink text-white" 
-                : "bg-surface text-muted hover:text-ink border border-transparent hover:border-hairline"
-            }`}
-          >
-            {tag}
-          </button>
-        ))}
-      </div>
-
-      {/* Grid */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-        <AnimatePresence mode="popLayout">
-          {filteredProjects.length > 0 ? (
-            filteredProjects.map((project) => (
-              <motion.div
-                layout
-                key={project._id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="group flex flex-col"
+        {/* Sticky Glassmorphic Filter Pill */}
+        <div className="sticky top-24 z-50 flex justify-center mb-16 pointer-events-none">
+          <div className="pointer-events-auto flex flex-wrap justify-center gap-1.5 md:gap-2 p-2 rounded-full bg-white/70 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.08)] max-w-full overflow-x-auto custom-scrollbar">
+            {allTags.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setActiveFilter(tag)}
+                className={`relative px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-widest transition-all duration-300 ${
+                  activeFilter === tag 
+                    ? "text-white shadow-md" 
+                    : "text-muted hover:text-ink hover:bg-black/5"
+                }`}
               >
-                <Link href={`/projects/${project.slug}`} className="block relative aspect-[4/3] rounded-2xl overflow-hidden bg-surface mb-6 border border-hairline">
-                  <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-                    {project.images?.[0]?.url ? (
-                      <img src={project.images[0].url} alt={project.title} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-muted text-small bg-hairline/50">
-                        [Project Image]
-                      </div>
-                    )}
-                  </div>
-                  <div className="absolute inset-0 bg-ink/0 group-hover:bg-ink/5 transition-colors duration-500" />
-                </Link>
-                
-                <h3 className="text-h3 font-display mb-3">
-                  <Link href={`/projects/${project.slug}`} className="hover:text-accent transition-colors">
-                    {project.title}
-                  </Link>
-                </h3>
-                
-                <p className="text-body text-muted line-clamp-2 mb-4">
-                  {project.summary}
-                </p>
+                {activeFilter === tag && (
+                  <motion.div
+                    layoutId="activeFilter"
+                    className="absolute inset-0 bg-ink rounded-full -z-10"
+                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  />
+                )}
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
 
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.techTags?.map((tag) => (
-                    <Badge key={tag} variant="outline" className="text-xs bg-transparent border-hairline hover:border-accent hover:text-accent transition-colors">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-
-                <div className="mt-auto flex items-center gap-6 pt-4 border-t border-hairline">
-                  <Link href={`/projects/${project.slug}`} className="inline-flex items-center gap-2 text-small font-semibold hover:text-accent transition-colors group/link">
-                    View Details
-                    <ArrowRight size={16} className="group-hover/link:translate-x-1 transition-transform" />
-                  </Link>
-                  
-                  {project.liveLink && (
-                    <a href={project.liveLink} target="_blank" rel="noreferrer" className="text-muted hover:text-ink transition-colors">
-                      <ExternalLink size={18} />
-                      <span className="sr-only">Live Site</span>
-                    </a>
-                  )}
-                  
-                  {project.githubLink && (
-                    <a href={project.githubLink} target="_blank" rel="noreferrer" className="text-muted hover:text-ink transition-colors">
-                      <Code size={18} />
-                      <span className="sr-only">Source Code</span>
-                    </a>
-                  )}
-                </div>
+        {/* Grid */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map((project, index) => (
+                <ProjectCard key={project._id} project={project} delay={index % 6} />
+              ))
+            ) : (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="col-span-full py-24 text-center text-muted font-display text-lg"
+              >
+                No projects found for the selected filter.
               </motion.div>
-            ))
-          ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="col-span-full py-24 text-center text-muted"
-            >
-              No projects found for the selected filter.
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </Container>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </Container>
+    </section>
   );
 };

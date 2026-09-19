@@ -287,6 +287,8 @@ const websiteJsonLd = {
   },
 };
 
+import { SmoothScroll } from "@/components/layout/SmoothScroll";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -295,7 +297,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased scroll-smooth`}
+      className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <head>
         {/* JSON-LD: Person schema — strongest Google signal for name searches */}
@@ -312,9 +314,11 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col font-sans selection:bg-accent selection:text-white">
-        <Navbar />
-        <main className="flex-1 flex flex-col pt-[88px]">{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <Navbar />
+          <main className="flex-1 flex flex-col pt-[88px]">{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );
