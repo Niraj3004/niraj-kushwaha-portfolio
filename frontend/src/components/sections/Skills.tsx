@@ -372,6 +372,7 @@ export const Skills = ({ data }: { data?: any[] }) => {
                         <motion.div
                           key={skill.name}
                           drag={true}
+                          dragSnapToOrigin={true}
                           dragConstraints={constraintsRef}
                           dragElastic={0.5}
                           whileDrag={{ scale: 1.15, zIndex: 50, cursor: "grabbing" }}

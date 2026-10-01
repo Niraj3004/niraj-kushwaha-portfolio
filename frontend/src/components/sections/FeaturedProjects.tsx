@@ -74,7 +74,7 @@ export const FeaturedProjects = async () => {
   const projects = await getFeaturedProjects();
 
   return (
-    <section id="projects" className="py-32 relative">
+    <section id="projects" className="py-32 relative bg-slate-50 text-slate-900">
       <Container>
         <SectionHeading 
           eyebrow="Selected Work"
